@@ -34,14 +34,30 @@ module.exports = {
     });
   },
 
+  getOptionCounts: async options => {
+    const optionsCollection = await getPollCollection();
+    for (const option of options) {
+      try {
+        const results = await optionsCollection.find();
+        return Object.keys(results).map(itemId => ({
+          id: itemId,
+          name: results[itemId].optionName,
+          timestamp: new Date(results[itemId].timestamp).toString()
+        }));
+      } catch (e) {
+        return [];
+      }
+    }
+  },
+
   getOptionHistory: async () => {
-    const options = await getPollCollection();
+    const optionsCollection = await getPollCollection();
     try {
-      const res = await options.find();
-      return Object.keys(res).map(itemId => ({
+      const results = await optionsCollection.find();
+      return Object.keys(results).map(itemId => ({
         id: itemId,
-        name: res[itemId].optionName,
-        timestamp: new Date(res[itemId].timestamp).toString()
+        name: results[itemId].optionName,
+        timestamp: new Date(results[itemId].timestamp).toString()
       }));
     } catch (e) {
       return [];
