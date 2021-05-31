@@ -34,11 +34,10 @@
         <!-- Write out a table row for each entry in the log array showing choice and timestamp -->
         {{#if optionHistory}}
           <div>
-            Color History
-            <b><a href="/delete-option-history">Delete History</a></b>
+            <h2>Poll History</h2>
             <table>
               <tr>
-                <th>Color Name</th>
+                <th>Option Name</th>
                 <th>Timestamp</th>
               </tr>
               {{#each optionHistory}}

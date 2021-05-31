@@ -49,8 +49,6 @@ fastify.get("/", async function (request, reply) {
       name: currentColor
     });
   }
-  // get the color history
-  params.optionHistory = await astra.getOptionHistory();
   reply.view("/src/pages/index.hbs", params);
 });
 
@@ -94,6 +92,30 @@ fastify.post("/", async function (request, reply) {
 fastify.get("/delete-option-history", async function (request, reply) {
   await astra.deleteOptionHistory();
   reply.redirect("/");
+});
+
+// Admin endpoint to get logs
+fastify.get("/logs", async (request, reply) => {
+  let params = {};
+  // get the poll history
+  params.optionHistory = await astra.getOptionHistory();
+  reply.view("/src/pages/admin.hbs", params);
+});
+
+// Admin endpoint to empty all logs - requires auth (instructions in README)
+fastify.post("/clearLogs", (request, reply) => {
+  let params = {};
+  // Authenticate the user request by checking against the env key variable
+  if (!request.body.key || request.body.key.length<1 || request.body.key !== process.env.ADMIN_KEY) {
+    // Auth failed, return the log data plus a failed flag
+    let params = {};
+    params.failed = true;
+    // Send the log list 
+    
+  } else {
+    // We have a valid key and can clear the log
+    
+  }
 });
 
 // Run the server and report out to the logs
