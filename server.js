@@ -46,13 +46,12 @@ fastify.get("/", async function (request, reply) {
       seo: seo,
     };
     // save a color history entry to astra
-    await astra.addColorHistory({
-      name: currentColor,
-      value: colors[currentColor],
+    await astra.addOptionHistory({
+      name: currentColor
     });
   }
   // get the color history
-  params.colorHistory = await astra.getColorHistory();
+  params.optionHistory = await astra.getOptionHistory();
   reply.view("/src/pages/index.hbs", params);
 });
 
@@ -71,22 +70,21 @@ fastify.post("/", async function (request, reply) {
     if (colors[color]) {
       // found one!
       // save a color history entry to astra
-      await astra.addColorHistory({
-        name: color,
-        value: colors[color],
+      await astra.addOptionHistory({
+        name: color
       });
       params = {
         color: colors[color],
         colorError: null,
         seo: seo,
-        colorHistory: await astra.getColorHistory(),
+        optionHistory: await astra.getOptionHistory(),
       };
     } else {
       // try again.
       params = {
         colorError: request.body.color,
         seo: seo,
-        colorHistory: await astra.getColorHistory(),
+        optionHistory: await astra.getOptionHistory(),
       };
     }
   }

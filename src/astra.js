@@ -16,33 +16,31 @@ const getAstraClient = async () => {
   return astraClient;
 };
 
-const getColorsCollection = async () => {
+const getPollCollection = async () => {
   const documentClient = await getAstraClient();
   return documentClient
     .namespace(process.env.ASTRA_DB_KEYSPACE)
-    .collection("colors");
+    .collection("pollOptions");
 };
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 module.exports = {
-  addColorHistory: async (color) => {
-    const colors = await getColorsCollection();
-    await colors.create({
-      colorName: color.name,
-      colorValue: color.value,
+  addOptionHistory: async (option) => {
+    const options = await getPollCollection();
+    await options.create({
+      optionName: option.name,
       timestamp: Date.now(),
     });
   },
 
-  getColorHistory: async () => {
-    const colors = await getColorsCollection();
+  getOptionHistory: async () => {
+    const options = await getPollCollection();
     try {
-      const res = await colors.find();
+      const res = await options.find();
       return Object.keys(res).map((itemId) => ({
         id: itemId,
-        name: res[itemId].colorName,
-        value: res[itemId].colorValue,
+        name: res[itemId].optionName,
         timestamp: new Date(res[itemId].timestamp).toString(),
       }));
     } catch (e) {
@@ -50,7 +48,7 @@ module.exports = {
     }
   },
 
-  deleteColorHistory: async () => {
+  deleteOptionHistory: async () => {
     await getAstraClient();
     astraClient.restClient.delete(
       `/api/rest/v2/schemas/keyspaces/${process.env.ASTRA_DB_KEYSPACE}/tables/colors`
