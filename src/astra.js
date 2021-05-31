@@ -8,7 +8,7 @@ const getAstraClient = async () => {
       {
         astraDatabaseId: process.env.ASTRA_DB_ID,
         astraDatabaseRegion: process.env.ASTRA_DB_REGION,
-        applicationToken: process.env.ASTRA_DB_APPLICATION_TOKEN,
+        applicationToken: process.env.ASTRA_DB_APPLICATION_TOKEN
       },
       30000
     );
@@ -23,14 +23,14 @@ const getPollCollection = async () => {
     .collection("pollOptions");
 };
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 module.exports = {
-  addOptionHistory: async (option) => {
+  addOptionHistory: async option => {
     const options = await getPollCollection();
     await options.create({
       optionName: option.name,
-      timestamp: Date.now(),
+      timestamp: Date.now()
     });
   },
 
@@ -38,10 +38,10 @@ module.exports = {
     const options = await getPollCollection();
     try {
       const res = await options.find();
-      return Object.keys(res).map((itemId) => ({
+      return Object.keys(res).map(itemId => ({
         id: itemId,
         name: res[itemId].optionName,
-        timestamp: new Date(res[itemId].timestamp).toString(),
+        timestamp: new Date(res[itemId].timestamp).toString()
       }));
     } catch (e) {
       return [];
@@ -54,5 +54,5 @@ module.exports = {
       `/api/rest/v2/schemas/keyspaces/${process.env.ASTRA_DB_KEYSPACE}/tables/colors`
     );
     await sleep(2000);
-  },
+  }
 };

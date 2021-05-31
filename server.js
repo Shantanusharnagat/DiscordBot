@@ -1,6 +1,5 @@
 const path = require("path");
 const astra = require("./src/astra");
-require("dotenv").config();
 
 // Require the fastify framework and instantiate it
 const fastify = require("fastify")({
@@ -92,8 +91,8 @@ fastify.post("/", async function (request, reply) {
 });
 
 // A GET route to handle clearing color history
-fastify.get("/delete-color-history", async function (request, reply) {
-  await astra.deleteColorHistory();
+fastify.get("/delete-option-history", async function (request, reply) {
+  await astra.deleteOptionHistory();
   reply.redirect("/");
 });
 

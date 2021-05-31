@@ -85,20 +85,18 @@
             alt="Node logo"
           />
         </div>
-        {{#if colorHistory}}
+        {{#if optionHistory}}
           <div>
             Color History
-            <b><a href="/delete-color-history">Delete History</a></b>
+            <b><a href="/delete-option-history">Delete History</a></b>
             <table>
               <tr>
                 <th>Color Name</th>
-                <th>Color Value</th>
                 <th>Timestamp</th>
               </tr>
-              {{#each colorHistory}}
+              {{#each optionHistory}}
                 <tr>
                   <td>{{name}}</td>
-                  <td>{{value}}</td>
                   <td>{{timestamp}}</td>
                 </tr>
               {{/each}}
