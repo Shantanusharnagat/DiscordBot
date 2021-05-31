@@ -36,21 +36,29 @@ module.exports = {
   addOptionHistory: async option => {
     const options = await getPollCollection();
     await options.create({
-      optionName: option.name,
+      name: option.name,
       timestamp: Date.now()
     });
   },
   
+  incrementOption: async option => {
+    const currentCount = module.exports.getOptionCount(option).count;
+  },
+  
   getOptionCount: async option => {
-    const optionsCollection = await getPollCountCollection();
+    const countCollection = await getPollCountCollection();
       try {
-        let results = await optionsCollection.find({ name: { $eq: option } });
+        let results = await countCollection.findOne({ name: { $eq: option } });
         return {
           name: option,
           count: Object.keys(results).length
         }
       } catch (e) {
         // couldn't find results, so setting this option to 0
+        // we'll also set it to 0 in the Astra db so it'll be in there next time
+        await countCollection.create(option,{
+          count: 0
+        });
         return {
           name: option,
           count: 0
