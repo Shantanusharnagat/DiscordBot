@@ -29,6 +29,13 @@ if (seo.url === "glitch-default") {
   seo.url = `https://${process.env.PROJECT_DOMAIN}.glitch.me`;
 }
 
+// set our poll options
+const pollOptions = [
+  "JavaScript",
+  "HTML", 
+  "CSS" 
+]
+
 // Our home page route, this pulls from src/pages/index.hbs
 fastify.get("/", async function (request, reply) {
   // params is an object we'll pass to our handlebars template
