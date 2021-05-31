@@ -40,30 +40,34 @@ module.exports = {
       timestamp: Date.now()
     });
   },
-  
+
   incrementOption: async option => {
+    const countCollection = await getPollCountCollection();
     const currentCount = module.exports.getOptionCount(option).count;
+    await countCollection.update(option, {
+      count: currentCount + 1
+    });
   },
-  
+
   getOptionCount: async option => {
     const countCollection = await getPollCountCollection();
-      try {
-        let results = await countCollection.findOne({ name: { $eq: option } });
-        return {
-          name: option,
-          count: Object.keys(results).length
-        }
-      } catch (e) {
-        // couldn't find results, so setting this option to 0
-        // we'll also set it to 0 in the Astra db so it'll be in there next time
-        await countCollection.create(option,{
-          count: 0
-        });
-        return {
-          name: option,
-          count: 0
-        }
-      }
+    try {
+      let results = await countCollection.findOne({ name: { $eq: option } });
+      return {
+        name: option,
+        count: Object.keys(results).length
+      };
+    } catch (e) {
+      // couldn't find results, so setting this option to 0
+      // we'll also set it to 0 in the Astra db so it'll be in there next time
+      await countCollection.create(option, {
+        count: 0
+      });
+      return {
+        name: option,
+        count: 0
+      };
+    }
   },
 
   getOptionCounts: async options => {

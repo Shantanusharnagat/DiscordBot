@@ -40,7 +40,8 @@ const pollOptions = [
 fastify.get("/", async function (request, reply) {
   // params is an object we'll pass to our handlebars template
   let params = { seo: seo };
-  // get our 
+  // get our options
+  params.options = astra.getOptionCounts(pollOptions);
   reply.view("/src/pages/index.hbs", params);
 });
 
