@@ -36,16 +36,23 @@ module.exports = {
 
   getOptionCounts: async options => {
     const optionsCollection = await getPollCollection();
-    let optionCounts = [];
+    const optionCounts = [];
     for (const option of options) {
       try {
-        const results = await optionsCollection.find({ name: { $eq: option } });
-        Object.keys(results).length;
+        let results = await optionsCollection.find({ name: { $eq: option } });
+        optionCounts.push({
+          name: option,
+          count: Object.keys(results).length
+        });
       } catch (e) {
         // couldn't find results, so setting this option to 0
-        return [];
+        optionCounts.push({
+          name: option,
+          count: 0
+        });
       }
     }
+    return optionCounts;
   },
 
   getOptionHistory: async () => {
