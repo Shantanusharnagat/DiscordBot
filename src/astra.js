@@ -36,15 +36,13 @@ module.exports = {
 
   getOptionCounts: async options => {
     const optionsCollection = await getPollCollection();
+    let optionCounts = [];
     for (const option of options) {
       try {
-        const results = await optionsCollection.find();
-        return Object.keys(results).map(itemId => ({
-          id: itemId,
-          name: results[itemId].optionName,
-          timestamp: new Date(results[itemId].timestamp).toString()
-        }));
+        const results = await optionsCollection.find({ name: { $eq: option } });
+        Object.keys(results).length;
       } catch (e) {
+        // couldn't find results, so setting this option to 0
         return [];
       }
     }
