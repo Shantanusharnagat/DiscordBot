@@ -40,22 +40,7 @@ const pollOptions = [
 fastify.get("/", async function (request, reply) {
   // params is an object we'll pass to our handlebars template
   let params = { seo: seo };
-  // check and see if someone asked for a random color
-  if (request.query.randomize) {
-    // we need to load our color data file, pick one at random, and add it to the params
-    const colors = require("./src/colors.json");
-    const allColors = Object.keys(colors);
-    let currentColor = allColors[(allColors.length * Math.random()) << 0];
-    params = {
-      color: colors[currentColor],
-      colorError: null,
-      seo: seo,
-    };
-    // save a color history entry to astra
-    await astra.addOptionHistory({
-      name: currentColor
-    });
-  }
+  // get our 
   reply.view("/src/pages/index.hbs", params);
 });
 
