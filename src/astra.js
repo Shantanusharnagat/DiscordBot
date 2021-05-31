@@ -23,6 +23,13 @@ const getPollCollection = async () => {
     .collection("pollOptions");
 };
 
+const getPollCountCollection = async () => {
+  const documentClient = await getAstraClient();
+  return documentClient
+    .namespace(process.env.ASTRA_DB_KEYSPACE)
+    .collection("pollCounts");
+};
+
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 module.exports = {
@@ -33,24 +40,28 @@ module.exports = {
       timestamp: Date.now()
     });
   },
-
-  getOptionCounts: async options => {
-    const optionsCollection = await getPollCollection();
-    const optionCounts = [];
-    for (const option of options) {
+  
+  getOptionCount: async option => {
+    const optionsCollection = await getPollCountCollection();
       try {
         let results = await optionsCollection.find({ name: { $eq: option } });
-        optionCounts.push({
+        return {
           name: option,
           count: Object.keys(results).length
-        });
+        }
       } catch (e) {
         // couldn't find results, so setting this option to 0
-        optionCounts.push({
+        return {
           name: option,
           count: 0
-        });
+        }
       }
+  },
+
+  getOptionCounts: async options => {
+    const optionCounts = [];
+    for (const option of options) {
+      optionCounts.push(module.exports.getOptionCount(option));
     }
     return optionCounts;
   },
