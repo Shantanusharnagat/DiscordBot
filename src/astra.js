@@ -44,10 +44,14 @@ module.exports = {
 
   incrementOption: async option => {
     const countCollection = await getCountCollection();
-    const currentCount = await module.exports.getOptionCount(option).count;
-    await countCollection.update(option, {
-      count: currentCount + 1
-    });
+    const currentCount = await module.exports.getOptionCount(option);
+    try {
+      await countCollection.update(option, {
+        count: currentCount.count + 1
+      });
+    } catch (e) {
+      console.error(e);
+    }
   },
   
   getOptionCount: async option => {
@@ -59,7 +63,7 @@ module.exports = {
     try {
       const results = await countCollection.get(option);
       if(results) {
-        optionCount.count = 0 + results.count; 
+        optionCount.count = results.count || 0; 
       } else {
         // we didn't find anything, so let's create a record for next time
         const newOption = await countCollection.create(option, optionCount);
@@ -70,7 +74,6 @@ module.exports = {
     } catch (e) {
       console.error(e);
     }
-    console.log(optionCount);
     return optionCount;
   },
 
