@@ -55,23 +55,21 @@ module.exports = {
       name: option,
       count: 0
     }
-    await countCollection.findOne({ name: { $eq: option } }).then(async (results) => {
-      if (results) {
-        optionCount.count = results.count;
-      } else {
-        await countCollection.create(option, {
-          count: 0
-        });
-      }
-    });
+    try {
+      const results = await countCollection.findOne({ name: { $eq: option } });
+      optionCount.count = results.count;
+    } catch (e) {
+      await countCollection.create(option, {
+        count: 0,
+      });
+    }
     return optionCount;
   },
 
   getOptionCounts: async options => {
     const optionCounts = [];
     for (const option of options) {
-      const results = await module.exports.getOptionCount(option);
-      //optionCounts.push(await module.exports.getOptionCount(option));
+      optionCounts.push(await module.exports.getOptionCount(option));
     }
     return optionCounts;
   },
