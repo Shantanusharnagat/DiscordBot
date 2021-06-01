@@ -49,17 +49,26 @@ module.exports = {
     });
   },
 
+  /*
+  function main() {
+  getQuote().then((quote) => {
+    console.log(quote);
+  }).catch((error) => {
+    console.error(error);
+  });
+}
+  */
+  
   getOptionCount: async option => {
     const countCollection = await getPollCountCollection();
-    try {
-      let results = await countCollection.findOne({ name: { $eq: option } });
+    countCollection.findOne({ name: { $eq: option } }).then((results) => {
       return {
         name: option,
-        count: Object.keys(results).length
+        count: results.count
       };
-    } catch (e) {
-      // couldn't find results, so setting this option to 0
-      // we'll also set it to 0 in the Astra db so it'll be in there next time
+    }).catch (error) {
+      console.error(error);
+      // couldn't find results, so setting this option to 0 for next time
       await countCollection.create(option, {
         count: 0
       });
@@ -95,7 +104,10 @@ module.exports = {
   deleteOptionHistory: async () => {
     await getAstraClient();
     astraClient.restClient.delete(
-      `/api/rest/v2/schemas/keyspaces/${process.env.ASTRA_DB_KEYSPACE}/tables/colors`
+      `/api/rest/v2/schemas/keyspaces/${process.env.ASTRA_DB_KEYSPACE}/tables/pollOptions`
+    );
+    astraClient.restClient.delete(
+      `/api/rest/v2/schemas/keyspaces/${process.env.ASTRA_DB_KEYSPACE}/tables/pollCounts`
     );
     await sleep(2000);
   }
