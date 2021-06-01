@@ -66,7 +66,7 @@ module.exports = {
         name: option,
         count: results.count
       };
-    }).catch (error) {
+    }).catch( async (error) => {
       console.error(error);
       // couldn't find results, so setting this option to 0 for next time
       await countCollection.create(option, {
@@ -76,7 +76,7 @@ module.exports = {
         name: option,
         count: 0
       };
-    }
+    });
   },
 
   getOptionCounts: async options => {
