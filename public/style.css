@@ -8,9 +8,9 @@ to this section's matching END comment to see page-specific styles.
 ******************************************************************************/
 /* Our default values set as CSS variables */
 :root {
-  --color-bg: #FFE6F8;
+  --color-bg: #CCCCCC;
   --color-text-main: #000000;
-  --color-primary: #D7F5EF;
+  --color-primary: #fff;
   --wrapper-height: 87vh;
   --image-max-width: 300px;
   --image-margin: 3rem;
@@ -129,7 +129,7 @@ label {
 
 /* Title h1 style */
 h1 {
-  color: #2800FF;
+  color: #111111;
   font-family: HK Grotesk;
   font-style: normal;
   font-weight: bold;
@@ -152,7 +152,7 @@ h1 {
 /* Styles for our poll form and its results */
 .poll-form,
 .poll-results {
-  background-color: #FFF3FC;
+  background-color: #EEEEEE;
   padding: 0 16px 16px 16px;
   border-radius: 8px;
 }
@@ -186,14 +186,14 @@ label {
   font-size: 1rem;
 }
 h2 {
-  color: #2800FF;
+  color: #222222;
 }
 
 /* Admin page */
 table {
   text-align: left;
   border-collapse: collapse;
-  background-color: #FFF3FC;
+  background-color: #EEEEEE;
 }
 td,
 th {
