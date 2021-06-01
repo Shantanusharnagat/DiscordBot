@@ -43,46 +43,33 @@ module.exports = {
 
   incrementOption: async option => {
     const countCollection = await getPollCountCollection();
-    const currentCount = module.exports.getOptionCount(option).count;
+    const currentCount = await module.exports.getOptionCount(option).count;
     await countCollection.update(option, {
       count: currentCount + 1
     });
   },
-
-  /*
-  function main() {
-  getQuote().then((quote) => {
-    console.log(quote);
-  }).catch((error) => {
-    console.error(error);
-  });
-}
-  */
   
   getOptionCount: async option => {
     const countCollection = await getPollCountCollection();
-    countCollection.findOne({ name: { $eq: option } }).then((results) => {
-      return {
-        name: option,
-        count: results.count
-      };
-    }).catch( async (error) => {
-      console.error(error);
-      // couldn't find results, so setting this option to 0 for next time
-      await countCollection.create(option, {
-        count: 0
-      });
-      return {
-        name: option,
-        count: 0
-      };
+    const optionCount = {
+      name: option,
+      count: 0
+    }
+    return await countCollection.findOne({ name: { $eq: option } }).then(async (results) => {
+      if (results) {
+        optionCount.count= results.count;
+      } else {
+        await countCollection.create(option, {
+          count: 0
+        });
+      }
     });
   },
 
   getOptionCounts: async options => {
     const optionCounts = [];
     for (const option of options) {
-      optionCounts.push(module.exports.getOptionCount(option));
+      optionCounts.push(await module.exports.getOptionCount(option));
     }
     return optionCounts;
   },
