@@ -9,8 +9,8 @@ to this section's matching END comment to see page-specific styles.
 /* Our default values set as CSS variables */
 :root {
   --color-bg: #CCCCCC;
-  --color-text-main: #000000;
-  --color-primary: #fff;
+  --color-text-main: #FFFFFF;
+  --color-primary: #000000;
   --wrapper-height: 87vh;
   --image-max-width: 300px;
   --image-margin: 3rem;
@@ -208,4 +208,17 @@ p.error,
 p.error a:link,
 p.error a:visited {
   color: #2800FF;
+}
+
+/* DataStax branding */
+.logo-datastax {
+  margin-top: 24px;
+  width: 40%;
+}
+body {
+  background-color: #043a5f;
+  background-image: url("../img/astra-background.png");
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
