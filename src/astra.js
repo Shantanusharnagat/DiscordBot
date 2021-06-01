@@ -16,14 +16,14 @@ const getAstraClient = async () => {
   return astraClient;
 };
 
-const getPollCollection = async () => {
+const getLogCollection = async () => {
   const documentClient = await getAstraClient();
   return documentClient
     .namespace(process.env.ASTRA_DB_KEYSPACE)
     .collection("pollOptions");
 };
 
-const getPollCountCollection = async () => {
+const getCountCollection = async () => {
   const documentClient = await getAstraClient();
   return documentClient
     .namespace(process.env.ASTRA_DB_KEYSPACE)
@@ -34,7 +34,7 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 module.exports = {
   addOptionHistory: async option => {
-    const options = await getPollCollection();
+    const options = await getLogCollection();
     await options.create({
       name: option,
       timestamp: Date.now()
@@ -42,7 +42,7 @@ module.exports = {
   },
 
   incrementOption: async option => {
-    const countCollection = await getPollCountCollection();
+    const countCollection = await getCountCollection();
     const currentCount = await module.exports.getOptionCount(option).count;
     await countCollection.update(option, {
       count: currentCount + 1
@@ -50,18 +50,23 @@ module.exports = {
   },
   
   getOptionCount: async option => {
-    const countCollection = await getPollCountCollection();
+    const countCollection = await getCountCollection();
     const optionCount = {
       name: option,
       count: 0
     }
     try {
       const results = await countCollection.findOne({ name: { $eq: option } });
-      optionCount.count = results.count;
+      if(results) {
+        optionCount.count = results.count; 
+      } else {
+        // we didn't find anything, so let's create a record for next time
+        await countCollection.create(option, {
+          count: 0,
+        });
+      }
     } catch (e) {
-      await countCollection.create(option, {
-        count: 0,
-      });
+      console.error(e);
     }
     return optionCount;
   },
@@ -75,16 +80,16 @@ module.exports = {
   },
 
   getOptionHistory: async () => {
-    const optionsCollection = await getPollCollection();
+    const logCollection = await getLogCollection();
     try {
-      console.log(optionsCollection)
-      const results = await optionsCollection.find();
-      return Object.keys(results).map(itemId => ({
+      const log = await logCollection.find();
+      return Object.keys(log).map(itemId => ({
         id: itemId,
-        name: results[itemId].name,
-        timestamp: new Date(results[itemId].timestamp).toString()
+        name: log[itemId].name,
+        timestamp: new Date(log[itemId].timestamp).toString()
       }));
     } catch (e) {
+      console.error(e);
       return null;
     }
   },
