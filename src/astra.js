@@ -36,7 +36,7 @@ module.exports = {
   addOptionHistory: async option => {
     const options = await getPollCollection();
     await options.create({
-      name: option.name,
+      name: option,
       timestamp: Date.now()
     });
   },
@@ -55,15 +55,16 @@ module.exports = {
       name: option,
       count: 0
     }
-    return await countCollection.findOne({ name: { $eq: option } }).then(async (results) => {
+    await countCollection.findOne({ name: { $eq: option } }).then(async (results) => {
       if (results) {
-        optionCount.count= results.count;
+        optionCount.count = results.count;
       } else {
         await countCollection.create(option, {
           count: 0
         });
       }
     });
+    return optionCount;
   },
 
   getOptionCounts: async options => {
