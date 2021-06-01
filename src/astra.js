@@ -34,11 +34,12 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 module.exports = {
   addOptionHistory: async option => {
-    const options = await getLogCollection();
-    await options.create({
+    const log = await getLogCollection();
+    await log.create({
       name: option,
       timestamp: Date.now()
     });
+    await module.exports.incrementOption(option);
   },
 
   incrementOption: async option => {
@@ -58,12 +59,16 @@ module.exports = {
     try {
       const results = await countCollection.findOne({ name: { $eq: option } });
       if(results) {
+        console.log(results)
         optionCount.count = results.count; 
       } else {
         // we didn't find anything, so let's create a record for next time
-        await countCollection.create(option, {
+        const newOption = await countCollection.create(option, {
           count: 0,
         });
+        if (!newOption) {
+          console.error('could not create option count row in DB')
+        }
       }
     } catch (e) {
       console.error(e);
@@ -83,6 +88,7 @@ module.exports = {
     const logCollection = await getLogCollection();
     try {
       const log = await logCollection.find();
+      console.log(log)
       return Object.keys(log).map(itemId => ({
         id: itemId,
         name: log[itemId].name,
