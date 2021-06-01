@@ -82,7 +82,7 @@ a:not(.btn--remix):visited {
   font-style: normal;
   font-weight: normal;
   font-size: 1.1rem;
-  color: var(--color-text-main);
+  color: var(--color-primary);
   text-decoration: none;
   border-style: none;
 }
@@ -205,11 +205,21 @@ p.error a:visited {
 /* DataStax branding */
 .logo-datastax {
   margin-top: 24px;
-  width: 40%;
+  width: 25%;
 }
 body {
   background-image: url("https://auth.cloud.datastax.com/auth/resources/dah2r/login/cloud/img/astra-background.png");
   background-position: center bottom;
   background-repeat: no-repeat;
   background-size: cover;
+  font-family: "Roboto", sans-serif;
+  line-height: 1.5rem;
+}
+h1 {
+  font-size: 80px;
+  margin-top: 0.5rem;
+}
+h1, h2 {
+  font-family: "Kanit", sans-serif;
+  font-weight: 700;
 }
