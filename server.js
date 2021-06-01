@@ -44,9 +44,9 @@ fastify.get("/", async function(request, reply) {
 // A POST route to handle and react to form submissions
 fastify.post("/", async function(request, reply) {
   let params = { seo: seo };
-  if (request.body.option) {
+  if (request.body.optionName) {
     params.picked = true;
-    await astra.addOptionHistory(request.body.option);
+    await astra.addOptionHistory(request.body.optionName);
   }
   params.options = await astra.getOptionCounts(pollOptions);
   params.optionNames = JSON.stringify(params.options.map(option => option.name));

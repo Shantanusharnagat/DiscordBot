@@ -108,7 +108,7 @@
               <form method="post" action="/">
                 <!-- The server script returns the list of language options to offer in the poll -->
                 {{#each options}}
-                <input type="radio" id="{{name}}" name="option" value="{{name}}" required/>
+                <input type="radio" id="{{name}}" name="optionName" value="{{name}}" required/>
                 <label for="{{name}}">{{name}}</label>
                 {{/each}}
                 <br/><br/>
