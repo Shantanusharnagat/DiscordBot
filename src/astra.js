@@ -77,14 +77,15 @@ module.exports = {
   getOptionHistory: async () => {
     const optionsCollection = await getPollCollection();
     try {
+      console.log(optionsCollection)
       const results = await optionsCollection.find();
       return Object.keys(results).map(itemId => ({
         id: itemId,
-        name: results[itemId].optionName,
+        name: results[itemId].name,
         timestamp: new Date(results[itemId].timestamp).toString()
       }));
     } catch (e) {
-      return [];
+      return null;
     }
   },
 
