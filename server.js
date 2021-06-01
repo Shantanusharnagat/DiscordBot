@@ -47,10 +47,10 @@ fastify.post("/", async function(request, reply) {
   if (request.body.option) {
     params.picked = true;
     await astra.addOptionHistory(request.body.option);
-  } 
+  }
   params.options = await astra.getOptionCounts(pollOptions);
-  params.choices = JSON.stringify(rows.map(c => c.language));
-  params.picks = JSON.stringify(rows.map(p => p.picks));
+  params.choices = JSON.stringify(params.options.map(option => option.name);
+  params.picks = JSON.stringify(params.options.map(option => option.count);
   reply.view("/src/pages/index.hbs", params);
 });
 
