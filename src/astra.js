@@ -57,7 +57,19 @@ module.exports = {
       count: 0
     }
     try {
-      
+      const results = await countCollection.get(option);
+      if(results) {
+        optionCount.count = 0 + results.count; 
+      } else {
+        // we didn't find anything, so let's create a record for next time
+        const newOption = await countCollection.create(option, {
+          name: option,
+          count: 0,
+        });
+        if (!newOption) {
+          console.error('could not create option count row in DB')
+        }
+      }
     } catch (e) {
       console.error(e);
     }
