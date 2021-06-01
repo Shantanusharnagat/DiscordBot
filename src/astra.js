@@ -57,13 +57,13 @@ module.exports = {
       count: 0
     }
     try {
-      const results = await countCollection.findOne({ name: { $eq: option } });
+      const results = await countCollection.get(option);
       if(results) {
-        console.log(results)
-        optionCount.count = results.count; 
+        optionCount.count = 0 + results.count; 
       } else {
         // we didn't find anything, so let's create a record for next time
         const newOption = await countCollection.create(option, {
+          name: option,
           count: 0,
         });
         if (!newOption) {
@@ -88,7 +88,6 @@ module.exports = {
     const logCollection = await getLogCollection();
     try {
       const log = await logCollection.find();
-      console.log(log)
       return Object.keys(log).map(itemId => ({
         id: itemId,
         name: log[itemId].name,
