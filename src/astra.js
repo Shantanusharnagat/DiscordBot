@@ -70,7 +70,8 @@ module.exports = {
   getOptionCounts: async options => {
     const optionCounts = [];
     for (const option of options) {
-      optionCounts.push(await module.exports.getOptionCount(option));
+      const results = await module.exports.getOptionCount(option);
+      //optionCounts.push(await module.exports.getOptionCount(option));
     }
     return optionCounts;
   },
