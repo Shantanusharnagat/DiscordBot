@@ -8,9 +8,9 @@ to this section's matching END comment to see page-specific styles.
 ******************************************************************************/
 /* Our default values set as CSS variables */
 :root {
-  --color-bg: #CCCCCC;
+  --color-bg: #043a5f;
   --color-text-main: #FFFFFF;
-  --color-primary: #000000;
+  --color-primary: #eb6c34;
   --wrapper-height: 87vh;
   --image-max-width: 300px;
   --image-margin: 3rem;
@@ -82,7 +82,7 @@ a:not(.btn--remix):visited {
   font-style: normal;
   font-weight: normal;
   font-size: 1.1rem;
-  color: #000;
+  color: var(--color-text-main);
   text-decoration: none;
   border-style: none;
 }
@@ -104,6 +104,7 @@ END Glitch hello-app default styles
 
 body {
   font-family: HK Grotesk;
+  color: var(--color-text-main);
   background-color: var(--color-bg);
 }
 
@@ -129,7 +130,7 @@ label {
 
 /* Title h1 style */
 h1 {
-  color: #111111;
+  color: var(--color-primary);
   font-family: HK Grotesk;
   font-style: normal;
   font-weight: bold;
@@ -137,22 +138,15 @@ h1 {
   line-height: 105%;
   margin: 2rem 0 0;
 }
-
-/* Very light scaling for our illustration */
-.illo-container {
-  display: flex;
-  justify-content: flex-end;
-}
-.illustration {
-  max-width: 100%;
-  max-height: 150px;
-  margin-top: 1rem;
+h2 {
+  color: #AAAAAA;
 }
 
 /* Styles for our poll form and its results */
 .poll-form,
 .poll-results {
-  background-color: #EEEEEE;
+  color: #000000;
+  background-color: #CCCCCC;
   padding: 0 16px 16px 16px;
   border-radius: 8px;
 }
@@ -185,15 +179,13 @@ label {
 .instructions p {
   font-size: 1rem;
 }
-h2 {
-  color: #222222;
-}
 
 /* Admin page */
 table {
   text-align: left;
   border-collapse: collapse;
   background-color: #EEEEEE;
+  color: #000000;
 }
 td,
 th {
@@ -216,8 +208,7 @@ p.error a:visited {
   width: 40%;
 }
 body {
-  background-color: #043a5f;
-  background-image: url("../img/astra-background.png");
+  background-image: url("https://auth.cloud.datastax.com/auth/resources/dah2r/login/cloud/img/astra-background.png");
   background-position: center bottom;
   background-repeat: no-repeat;
   background-size: cover;
