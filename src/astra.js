@@ -16,25 +16,18 @@ const getAstraClient = async () => {
   return astraClient;
 };
 
-const getLogCollection = async () => {
+const getCollection = async collectionName => {
   const documentClient = await getAstraClient();
   return documentClient
     .namespace(process.env.ASTRA_DB_KEYSPACE)
-    .collection("pollOptions");
-};
-
-const getCountCollection = async () => {
-  const documentClient = await getAstraClient();
-  return documentClient
-    .namespace(process.env.ASTRA_DB_KEYSPACE)
-    .collection("pollCounts");
+    .collection(collectionName);
 };
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 module.exports = {
   addOptionHistory: async option => {
-    const log = await getLogCollection();
+    const log = await getCollection("pollOptions");
     await log.create({
       name: option,
       timestamp: Date.now()
@@ -43,7 +36,7 @@ module.exports = {
   },
 
   incrementOption: async option => {
-    const countCollection = await getCountCollection();
+    const countCollection = await getCollection("pollCounts");
     const currentCount = await module.exports.getOptionCount(option);
     try {
       await countCollection.update(option, {
@@ -53,22 +46,22 @@ module.exports = {
       console.error(e);
     }
   },
-  
+
   getOptionCount: async option => {
-    const countCollection = await getCountCollection();
+    const countCollection = await getCollection("pollCounts");
     const optionCount = {
       name: option,
       count: 0
-    }
+    };
     try {
       const results = await countCollection.get(option);
-      if(results) {
-        optionCount.count = results.count || 0; 
+      if (results) {
+        optionCount.count = results.count || 0;
       } else {
         // we didn't find anything, so let's create a record for next time
         const newOption = await countCollection.create(option, optionCount);
         if (!newOption) {
-          console.error('could not create option count row in DB')
+          console.error("could not create option count row in DB");
         }
       }
     } catch (e) {
@@ -86,7 +79,7 @@ module.exports = {
   },
 
   getOptionHistory: async () => {
-    const logCollection = await getLogCollection();
+    const logCollection = await getCollection("pollOptions");
     try {
       const log = await logCollection.find();
       return Object.keys(log).map(itemId => ({

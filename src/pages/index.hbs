@@ -77,11 +77,15 @@
       <div class="content" role="main">
           
         <!-- This is the start of content for our page -->
-        <img src="https://auth.cloud.datastax.com/auth/resources/dah2r/login/cloud/img/datastax-white-logo.svg" alt="DataStax" class="logo-datastax" /> x
-        <img src="https://auth.cloud.datastax.com/auth/resources/dah2r/login/cloud/img/datastax-white-logo.svg" alt="DataStax" class="logo-datastax" />
+        <div class="logo-block">
+          <img src="https://auth.cloud.datastax.com/auth/resources/dah2r/login/cloud/img/datastax-white-logo.svg" alt="DataStax" class="logo-datastax" />
+          x
+          <img src="https://cdn.glitch.com/ae313032-8fbd-4b72-bdc1-d5a86e415b34%2FGlitchLogo_White_Wordmark.svg?v=1622574463535" alt="Glitch" class="logo-glitch" />       
+        </div>
+
         <h1>Hello Astra!</h1>
           <p>
-            A simple poll built with Chart.js and powered by the DataStax Astra cloud database accessed via Node.js.
+            The easiest Cassandra ever. A simple poll using Chart.js and powered by the <strong>DataStax Astra</strong> cloud database. Built in Node.js, instantly remixable on Glitch.
           </p>
           <!-- Server returns a flag when the user has submitted a choice and we show the results -->
           {{#if picked}}

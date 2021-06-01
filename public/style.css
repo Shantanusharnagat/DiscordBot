@@ -205,10 +205,21 @@ p.error a:visited {
   margin: 3rem 0;
 }
 
-/* DataStax branding */
+/* branding */
+.logo-block {
+  margin-top: 1rem;
+  font-weight: 200;
+}
 .logo-datastax {
-  margin-top: 24px;
-  width: 25%;
+  width: 10rem;
+  display: inline;
+  margin-right: 0.25rem;
+}
+.logo-glitch {
+  width: 6rem;
+  display: inline;
+  margin-left: 0.15rem;
+  margin-bottom: -0.1rem;
 }
 body {
   background-image: url("https://auth.cloud.datastax.com/auth/resources/dah2r/login/cloud/img/astra-background.png");
