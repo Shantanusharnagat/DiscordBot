@@ -48,8 +48,12 @@ fastify.post("/", async function(request, reply) {
     await astra.addOptionHistory(request.body.optionName);
   }
   params.options = await astra.getOptionCounts(pollOptions);
-  params.optionNames = JSON.stringify(params.options.map(option => option.name));
-  params.optionCounts = JSON.stringify(params.options.map(option => option.count));
+  params.optionNames = JSON.stringify(
+    params.options.map(option => option.name)
+  );
+  params.optionCounts = JSON.stringify(
+    params.options.map(option => option.count)
+  );
   reply.view("/src/pages/index.hbs", params);
 });
 
@@ -89,5 +93,4 @@ fastify.listen(process.env.PORT, function(err, address) {
     process.exit(1);
   }
   console.log(`Your app is listening on ${address}`);
-  fastify.log.info(`server listening on ${address}`);
 });
