@@ -91,7 +91,7 @@ a:not(.btn--remix):visited {
 }
 
 .footer .links {
-  padding: 0.5rem 1rem 1.5rem;
+  padding: 0.5rem 1rem 1.5rem 0;
   white-space: nowrap;
 }
 
@@ -228,7 +228,8 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   font-family: "Roboto", sans-serif;
-  line-height: 1.5rem;
+  line-height: 1.75rem;
+  font-weight: 300;
 }
 h1 {
   font-size: 48px;
@@ -240,4 +241,7 @@ h1, h2 {
 }
 .footer a:hover {
   background: #222222;
+}
+strong, label {
+  font-weight: 500;
 }
