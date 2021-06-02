@@ -29,13 +29,14 @@ if (seo.url === "glitch-default") {
   seo.url = `https://${process.env.PROJECT_DOMAIN}.glitch.me`;
 }
 
+// we'll use an object to pass parameters to the front end
+const params = { seo: seo };
+
 // set our poll options
 const pollOptions = ["JavaScript", "HTML", "CSS"];
 
 // Our home page route, this pulls from src/pages/index.hbs
 fastify.get("/", async function(request, reply) {
-  // params is an object we'll pass to our handlebars template
-  let params = { seo: seo };
   // get our options
   params.options = await astra.getOptionCounts(pollOptions);
   reply.view("/src/pages/index.hbs", params);
@@ -43,7 +44,6 @@ fastify.get("/", async function(request, reply) {
 
 // A POST route to handle and react to form submissions
 fastify.post("/", async function(request, reply) {
-  let params = { seo: seo };
   if (request.body.optionName) {
     params.picked = true;
     await astra.addOptionHistory(request.body.optionName);
@@ -54,35 +54,28 @@ fastify.post("/", async function(request, reply) {
   reply.view("/src/pages/index.hbs", params);
 });
 
-// A GET route to handle clearing color history
-fastify.get("/delete-option-history", async function(request, reply) {
-  await astra.deleteOptionHistory();
-  reply.redirect("/");
-});
-
 // Admin endpoint to get logs
 fastify.get("/logs", async (request, reply) => {
-  let params = {};
   // get the poll history
   params.optionHistory = await astra.getOptionHistory();
   reply.view("/src/pages/admin.hbs", params);
 });
 
 // Admin endpoint to empty all logs - requires auth (instructions in README)
-fastify.post("/clearLogs", (request, reply) => {
-  let params = {};
+fastify.post("/clearLogs", async (request, reply) => {
   // Authenticate the user request by checking against the env key variable
   if (
     !request.body.key ||
     request.body.key.length < 1 ||
-    request.body.key !== process.env.ADMIN_KEY
+    request.body.key !== process.env.ADMIN_KEY ||
+    !process.env.ADMIN_KEY
   ) {
     // Auth failed, return the log data plus a failed flag
-    let params = {};
     params.failed = true;
     // Send the log list
   } else {
-    // We have a valid key and can clear the log
+    await astra.deleteOptionHistory();
+    reply.redirect("/");
   }
 });
 
