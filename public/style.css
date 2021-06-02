@@ -209,14 +209,15 @@ p.error a:visited {
 .logo-block {
   margin-top: 1rem;
   font-weight: 200;
+  font-size: 1.25rem;
 }
 .logo-datastax {
-  width: 10rem;
+  width: 8rem;
   display: inline;
   margin-right: 0.25rem;
 }
 .logo-glitch {
-  width: 6rem;
+  width: 6.5rem;
   display: inline;
   margin-left: 0.15rem;
   margin-bottom: -0.1rem;
