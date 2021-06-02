@@ -76,6 +76,7 @@ fastify.post("/clearlogs", async (request, reply) => {
     // Send the log list
   } else {
     await astra.deleteOptionHistory();
+    params.failed = null;
     reply.redirect("/");
   }
 });
