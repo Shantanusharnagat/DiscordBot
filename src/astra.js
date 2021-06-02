@@ -88,8 +88,8 @@ module.exports = {
         timestamp: new Date(log[itemId].timestamp).toString()
       }));
     } catch (e) {
-      console.error(e);
-      return null;
+      //console.error(e);
+      return [];;
     }
   },
 
