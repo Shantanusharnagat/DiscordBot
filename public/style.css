@@ -90,6 +90,10 @@ a:not(.btn--remix):visited {
   background: var(--color-bg);
 }
 
+.footer a.btn--remix:hover {
+  background-color: #D0FFF1;
+}
+
 .footer .links {
   padding: 0.5rem 1rem 1.5rem 0;
   white-space: nowrap;
