@@ -94,13 +94,10 @@ module.exports = {
   },
 
   deleteOptionHistory: async () => {
+    const base = `/api/rest/v2/schemas/keyspaces/${process.env.ASTRA_DB_KEYSPACE}/tables`;
     await getAstraClient();
-    astraClient.restClient.delete(
-      `/api/rest/v2/schemas/keyspaces/${process.env.ASTRA_DB_KEYSPACE}/tables/pollOptions`
-    );
-    astraClient.restClient.delete(
-      `/api/rest/v2/schemas/keyspaces/${process.env.ASTRA_DB_KEYSPACE}/tables/pollCounts`
-    );
+    astraClient.restClient.delete(`${base}/pollOptions`);
+    astraClient.restClient.delete(`${base}/pollCounts`);
     await sleep(2000);
   }
 };
