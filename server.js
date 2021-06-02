@@ -62,7 +62,7 @@ fastify.get("/logs", async (request, reply) => {
 });
 
 // Admin endpoint to empty all logs - requires auth (instructions in README)
-fastify.post("/clearLogs", async (request, reply) => {
+fastify.post("/clearlogs", async (request, reply) => {
   // Authenticate the user request by checking against the env key variable
   if (
     !request.body.key ||
