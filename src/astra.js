@@ -1,9 +1,13 @@
 const { createClient } = require("@astrajs/collections");
 
-// Sets 
+// Sets a top-level astraClient variable for us to reference
 let astraClient = null;
+
+// Retrieves the main Astra Collections Client API object
 const getAstraClient = async () => {
   if (astraClient === null) {
+    // Wrap the connection in a try, letting us know if it fails
+    // If it does, it's probably because we're in a fresh remix
     try {
       astraClient = await createClient(
         {
@@ -14,13 +18,14 @@ const getAstraClient = async () => {
         30000
       );
     } catch (e) {
-      //console.error(e);
+      // Return null to indicate we couldn't connect
       astraClient = null;
     }
   }
   return astraClient;
 };
 
+// Gets a collection object, used by most of the exported functions
 const getCollection = async collectionName => {
   try {
     const documentClient = await getAstraClient();
@@ -33,9 +38,9 @@ const getCollection = async collectionName => {
   }
 };
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-
+// These are the functions we can call when is required in server.js
 module.exports = {
+  // Creates a log entry for the chosen option
   addOptionHistory: async option => {
     const log = await getCollection("pollOptions");
     await log.create({
@@ -45,6 +50,7 @@ module.exports = {
     await module.exports.incrementOption(option);
   },
 
+  // The database stores a total count for each option, this increments it
   incrementOption: async option => {
     const countCollection = await getCollection("pollCounts");
     const currentCount = await module.exports.getOptionCount(option);
@@ -57,6 +63,7 @@ module.exports = {
     }
   },
 
+  // This gets the count for a single option
   getOptionCount: async (option, collection) => {
     const optionCount = {
       name: option,
@@ -79,17 +86,21 @@ module.exports = {
     return optionCount;
   },
 
+  // This bundles up an array for all our totals
   getOptionCounts: async options => {
     const countCollection = await getCollection("pollCounts");
     if (countCollection === null) {
       // there was an error getting the collection, likely improper setup
       return null;
     } else {
+      /*
       const optionCounts = [];
       for (const option of options) {
         optionCounts.push(await module.exports.getOptionCount(option, countCollection));
       }
+
       return optionCounts;
+      */
     }
   },
 
@@ -113,6 +124,6 @@ module.exports = {
     await getAstraClient();
     astraClient.restClient.delete(`${base}/pollOptions`);
     astraClient.restClient.delete(`${base}/pollCounts`);
-    await sleep(2000);
+    await new Promise(resolve => setTimeout(resolve, 2000));;
   }
 };
