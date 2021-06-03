@@ -29,7 +29,6 @@ const getAstraClient = async () => {
 const getCollection = async collectionName => {
   try {
     const documentClient = await getAstraClient();
-    console.log(documentClient);
     return documentClient
       .namespace(process.env.ASTRA_DB_KEYSPACE)
       .collection(collectionName);
@@ -76,17 +75,14 @@ module.exports = {
     };
     try {
       const results = await collection.get(option);
-      if (results) {
-        // If the results come back bad we return zero
-        optionCount.count = results.count || 0;
-      } else {
-        // we didn't find anything, so let's create a record for next time
-        const newOption = await collection.create(option, optionCount);
-        if (!newOption) {
-          console.error("could not create option count row in DB");
-        }
-      }
+      // If the results come back bad we return zero
+      optionCount.count = results.count || 0;
     } catch (e) {
+      // we didn't find anything, so let's create a record for next time
+      const newOption = await collection.create(option, optionCount);
+      if (!newOption) {
+        console.error("could not create option count row in DB");
+      }
       console.error(e);
     }
     return optionCount;
