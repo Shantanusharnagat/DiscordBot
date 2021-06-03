@@ -180,7 +180,7 @@ label {
 .instructions {
   margin: 1rem auto 0;
 }
-.instructions p {
+.poll-form p, .instructions p {
   font-size: 1rem;
 }
 
@@ -249,8 +249,9 @@ h1, h2 {
 strong, label {
   font-weight: 500;
 }
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 640px) {
   .setup-instructions {
+    padding-top: 18px;
     display: flex;
   }
 }

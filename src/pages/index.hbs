@@ -39,6 +39,7 @@
       var ctx = document.getElementById('myChart');
       var myLineChart = new Chart(ctx, {
         type: "doughnut",
+        responsive: true,
         data: {
           labels: choices,
           datasets: [{
@@ -136,7 +137,12 @@
                   </div>
                   <div class="setup-column">
                     <p>
-                      [ Additional setup info ]  
+                      It looks like there's a little setup needed. If this is a new remix, 
+                      check the <strong>README.md</strong> file in the Glitch editor for more
+                      instructions and next steps. 
+                    </p>
+                    <p>
+                      You'll be up and running in about five minutes!
                     </p>
                   </div>
                 </div>
