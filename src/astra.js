@@ -22,10 +22,15 @@ const getAstraClient = async () => {
 };
 
 const getCollection = async collectionName => {
-  const documentClient = await getAstraClient();
-  return documentClient
-    .namespace(process.env.ASTRA_DB_KEYSPACE)
-    .collection(collectionName);
+  try {
+    const documentClient = await getAstraClient();
+    return documentClient
+      .namespace(process.env.ASTRA_DB_KEYSPACE)
+      .collection(collectionName);
+  } catch (e) {
+    //console.error(e);
+    return null;
+  }
 };
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -52,7 +57,7 @@ module.exports = {
     }
   },
 
-  getOptionCount: async option => {
+  getOptionCount: async (option, collection) => {
     const countCollection = await getCollection("pollCounts");
     const optionCount = {
       name: option,

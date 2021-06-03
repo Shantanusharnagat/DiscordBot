@@ -113,18 +113,24 @@
               <p>
                 What do you like coding most?
               </p>
-              <!-- Call the server pick endpoint when the user submits an option in the poll -->
-              <form method="post" action="/">
-                <!-- The server script returns the list of language options to offer in the poll -->
-                {{#each options}}
-                <input type="radio" id="{{name}}" name="optionName" value="{{name}}" required/>
-                <label for="{{name}}">{{name}}</label>
-                {{/each}}
-                <br/><br/>
-                <button type="submit">
-                  Submit
-                </button>
-              </form>
+              {{#if options}}
+                <!-- Call the server pick endpoint when the user submits an option in the poll -->
+                <form method="post" action="/">
+                  <!-- The server script returns the list of language options to offer in the poll -->
+                  {{#each options}}
+                  <input type="radio" id="{{name}}" name="optionName" value="{{name}}" required/>
+                  <label for="{{name}}">{{name}}</label>
+                  {{/each}}
+                  <br/><br/>
+                  <button type="submit">
+                    Submit
+                  </button>
+                </form>
+              {{else}}
+                <p>
+                  [ Additional setup info ]  
+                </p>
+              {{/if}}
             </div>
           {{/if}}
         
