@@ -127,13 +127,13 @@
                   </button>
                 </form>
               {{else}}
-                <p>
-                  <canvas id="myChart"></canvas>
+                  <canvas id="myChart" class="setup"></canvas>
                   <script type="text/javascript">
-                    showChart(["finish","setup","README"], [1,2,3]);
+                    showChart(["finish","setup","README.md"], [1,2,3]);
                   </script>
-                  [ Additional setup info ]  
-                </p>
+                  <p>
+                    [ Additional setup info ]  
+                  </p>
               {{/if}}
             </div>
           {{/if}}
