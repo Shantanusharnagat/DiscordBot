@@ -127,13 +127,19 @@
                   </button>
                 </form>
               {{else}}
-                  <canvas id="myChart" class="setup"></canvas>
-                  <script type="text/javascript">
-                    showChart(["finish","setup","README.md"], [1,2,3]);
-                  </script>
-                  <p>
-                    [ Additional setup info ]  
-                  </p>
+                <div class="setup-instructions">
+                  <div class="setup-column">
+                    <canvas id="myChart" class="setup"></canvas>
+                    <script type="text/javascript">
+                      showChart(["finish","setup","README.md"], [1,2,3]);
+                    </script>
+                  </div>
+                  <div class="setup-column">
+                    <p>
+                      [ Additional setup info ]  
+                    </p>
+                  </div>
+                </div>
               {{/if}}
             </div>
           {{/if}}
