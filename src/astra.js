@@ -67,19 +67,20 @@ module.exports = {
   },
 
   // This gets the count for a single option
-  getOptionCount: async (option, collection) => {
-    // We format a default object to return in case we find no results
+  getOptionCount: async option => {
+    const countCollection = await getCollection("pollCounts");
+    // Format a default object to return in case we find no results
     const optionCount = {
       name: option,
       count: 0
     };
     try {
-      const results = await collection.get(option);
+      const results = await countCollection.get(option);
       // If the results come back bad we return zero
       optionCount.count = results.count || 0;
     } catch (e) {
       // we didn't find anything, so let's create a record for next time
-      const newOption = await collection.create(option, optionCount);
+      const newOption = await countCollection.create(option, optionCount);
       if (!newOption) {
         console.error("could not create option count row in DB");
       }
@@ -97,7 +98,7 @@ module.exports = {
     } else {
       const optionCounts = [];
       for (const option of options) {
-        optionCounts.push(await module.exports.getOptionCount(option, countCollection));
+        optionCounts.push(await module.exports.getOptionCount(option));
       }
       return optionCounts;
     }
