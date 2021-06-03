@@ -249,3 +249,8 @@ h1, h2 {
 strong, label {
   font-weight: 500;
 }
+@media only screen and (min-width: 600px) {
+  .setup-instructions {
+    display: flex;
+  }
+}
