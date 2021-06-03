@@ -65,6 +65,7 @@ module.exports = {
 
   // This gets the count for a single option
   getOptionCount: async (option, collection) => {
+    // We format a default object to return in case we find no results
     const optionCount = {
       name: option,
       count: 0
@@ -72,6 +73,7 @@ module.exports = {
     try {
       const results = await collection.get(option);
       if (results) {
+        // If the results come back bad we return zero
         optionCount.count = results.count || 0;
       } else {
         // we didn't find anything, so let's create a record for next time
@@ -93,17 +95,16 @@ module.exports = {
       // there was an error getting the collection, likely improper setup
       return null;
     } else {
-      /*
+      console.log(await countCollection.find());
       const optionCounts = [];
       for (const option of options) {
         optionCounts.push(await module.exports.getOptionCount(option, countCollection));
       }
-
       return optionCounts;
-      */
     }
   },
 
+  // Get our logs to show a history
   getOptionHistory: async () => {
     const logCollection = await getCollection("pollOptions");
     try {
