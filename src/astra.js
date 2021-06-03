@@ -38,6 +38,9 @@ const getCollection = async collectionName => {
   }
 };
 
+getCollection("pollOptions");
+getCollection("pollCounts");
+
 // These are the functions we can call when is required in server.js
 module.exports = {
   // Creates a log entry for the chosen option
@@ -95,7 +98,6 @@ module.exports = {
       // there was an error getting the collection, likely improper setup
       return null;
     } else {
-      console.log(await countCollection.find());
       const optionCounts = [];
       for (const option of options) {
         optionCounts.push(await module.exports.getOptionCount(option, countCollection));
@@ -104,22 +106,24 @@ module.exports = {
     }
   },
 
-  // Get our logs to show a history
+  // Get our logs to show a history of choices and timestamps
   getOptionHistory: async () => {
     const logCollection = await getCollection("pollOptions");
     try {
       const log = await logCollection.find();
+      // reformat our results for the template
       return Object.keys(log).map(itemId => ({
         id: itemId,
         name: log[itemId].name,
         timestamp: new Date(log[itemId].timestamp).toString()
       }));
     } catch (e) {
-      //console.error(e);
-      return [];;
+      // Something went wrong, return an empty array
+      return [];
     }
   },
 
+  // Delete 
   deleteOptionHistory: async () => {
     const base = `/api/rest/v2/schemas/keyspaces/${process.env.ASTRA_DB_KEYSPACE}/tables`;
     await getAstraClient();
