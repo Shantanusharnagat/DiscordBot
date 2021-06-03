@@ -110,10 +110,10 @@
               Poll
             </h2>
             <div class="poll-form">
-              <p>
-                What do you like coding most?
-              </p>
               {{#if options}}
+                <p>
+                  What do you like coding most?
+                </p>
                 <!-- Call the server pick endpoint when the user submits an option in the poll -->
                 <form method="post" action="/">
                   <!-- The server script returns the list of language options to offer in the poll -->

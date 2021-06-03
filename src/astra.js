@@ -1,7 +1,7 @@
 const { createClient } = require("@astrajs/collections");
 
+// Sets 
 let astraClient = null;
-
 const getAstraClient = async () => {
   if (astraClient === null) {
     try {
@@ -58,18 +58,17 @@ module.exports = {
   },
 
   getOptionCount: async (option, collection) => {
-    const countCollection = await getCollection("pollCounts");
     const optionCount = {
       name: option,
       count: 0
     };
     try {
-      const results = await countCollection.get(option);
+      const results = await collection.get(option);
       if (results) {
         optionCount.count = results.count || 0;
       } else {
         // we didn't find anything, so let's create a record for next time
-        const newOption = await countCollection.create(option, optionCount);
+        const newOption = await collection.create(option, optionCount);
         if (!newOption) {
           console.error("could not create option count row in DB");
         }
@@ -81,11 +80,17 @@ module.exports = {
   },
 
   getOptionCounts: async options => {
-    const optionCounts = [];
-    for (const option of options) {
-      optionCounts.push(await module.exports.getOptionCount(option));
+    const countCollection = await getCollection("pollCounts");
+    if (countCollection === null) {
+      // there was an error getting the collection, likely improper setup
+      return null;
+    } else {
+      const optionCounts = [];
+      for (const option of options) {
+        optionCounts.push(await module.exports.getOptionCount(option, countCollection));
+      }
+      return optionCounts;
     }
-    return optionCounts;
   },
 
   getOptionHistory: async () => {
