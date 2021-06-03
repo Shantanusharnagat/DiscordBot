@@ -29,11 +29,12 @@ const getAstraClient = async () => {
 const getCollection = async collectionName => {
   try {
     const documentClient = await getAstraClient();
+    console.log(documentClient);
     return documentClient
       .namespace(process.env.ASTRA_DB_KEYSPACE)
       .collection(collectionName);
   } catch (e) {
-    //console.error(e);
+    console.error(e);
     return null;
   }
 };
