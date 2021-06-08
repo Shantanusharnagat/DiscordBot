@@ -68,7 +68,7 @@ module.exports = {
 
   // This gets the count for a single option
   getOptionCount: async option => {
-    const countCollection = await getCollection("pollCounts");
+    const countCollection = await getCollection("pollCounts"); console.log(countCollection)
     // Format a default object to return in case we find no results
     const optionCount = {
       name: option,

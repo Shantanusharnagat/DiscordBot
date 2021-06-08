@@ -37,6 +37,7 @@ fastify.get("/", async function(request, reply) {
   const params = { seo: seo };
   // get our options
   params.options = await astra.getOptionCounts(pollOptions);
+  console.log(params.options);
   reply.view("/src/pages/index.hbs", params);
 });
 
