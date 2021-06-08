@@ -2,9 +2,11 @@
 
 This project includes a [Node.js](https://nodejs.org/en/about/) server script that uses a serverless [DataStax Astra](https://astra.datastax.com) database. The app also includes a front-end with two web pages that connect to the database using the server API. 📊
 
-The home page presents the user with a poll where they can choose an option, then the page presents the results in a chart. The admin page displays the log of past choices and allows the user to clear it by supplying their admin key (you can set this up next). 🔒
+The home page presents the user with a poll where they can choose an option, then the page presents the results in a chart. The admin page displays the log of past choices and allows the user to clear it by supplying their admin key (you can set this up below). 
 
-    
+![DataStax Astra](https://raw.githubusercontent.com/DataStax-Examples/sample-app-template/master/screenshots/astra-sample-app-default.png)
+
+_____________________________________________________________________
 
 ## Prerequisites
 
@@ -17,7 +19,7 @@ To get best use out of this project you'll ideally be familiar with JavaScript a
 * [Sign up /into a DataStax Astra account](https://astra.datastax.com/register?utm_source=github&utm_medium=referral&utm_campaign=astra-glitch-react-express-starter).
 * Click __Create Database__ &gt; __Get Started__.
 
-![Database setup](https://cdn.glitch.com/f3419efa-7e65-4968-8b15-1e151feaf4c5%2Fastra-db-setup.jpg?v=1623150868127)
+![Database setup](https://cdn.glitch.com/ae313032-8fbd-4b72-bdc1-d5a86e415b34%2Fastra-db-setup.jpg?v=1623160620637)
 
 * Enter your new database details:
   * __Database Name__ `Preferences`
@@ -25,17 +27,17 @@ To get best use out of this project you'll ideally be familiar with JavaScript a
   * Select a provider and region
   * Click __Create Database__
 
-![Astra active](https://cdn.glitch.com/f3419efa-7e65-4968-8b15-1e151feaf4c5%2Fastra-active.jpg?v=1623150956335)
+![Astra active](https://cdn.glitch.com/ae313032-8fbd-4b72-bdc1-d5a86e415b34%2Fastra-active.jpg?v=1623160649093)
 
 * Once your database __Status__ changes to `Active` it's ready to use!
 
 Connect your Astra data to your Glitch app:
 
-![Astra ID](https://cdn.glitch.com/f3419efa-7e65-4968-8b15-1e151feaf4c5%2Fastra-id.jpg?v=1623151174035)
+![Astra ID](https://cdn.glitch.com/ae313032-8fbd-4b72-bdc1-d5a86e415b34%2Fastra-id.jpg?v=1623160673028)
 
 * With your database selected, click __Connect__. Copy the `ASTRA_DB_ID` and region values, pasting them into your Glitch app `.env` as the corresponding variable values.
 
-![Astra user](https://cdn.glitch.com/f3419efa-7e65-4968-8b15-1e151feaf4c5%2Fastra-user-setup.jpg?v=1623158490110)
+![Astra user](https://cdn.glitch.com/ae313032-8fbd-4b72-bdc1-d5a86e415b34%2Fastra-user-setup.jpg?v=1623160692336)
 
 * Back in Astra, click the dropdown with your username displayed at the top left to access the __Organization Settings__.
 * Select __Token Management__ and choose __Admin User__ from the dropdown list.
@@ -74,7 +76,7 @@ _You can also use the [GitHub Astra Starter Repository](https://github.com/DataS
 
 ## Setting up admin
 
-The site __Admin__ page allows the user to clear the database log of picks–but only if a valid key is provided. This is a simplified example of auth that checks if the user entered key matches the one in the `.env`.
+The site __Admin__ page allows the user to clear the database log of picks–but only if a valid key is provided. This is a simplified example of auth that checks if the user entered key matches the one in the `.env`. 🔒
 
 To set your app up to allow clearing the log:
 

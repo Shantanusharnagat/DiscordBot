@@ -1,3 +1,10 @@
+/**
+ * This is the main server script that provides the API endpoints
+ * The script uses the database helper in /src
+ * The endpoints retrieve, update, and return data to the page handlebars files
+ */
+
+// Utilities we need
 const path = require("path");
 const astra = require("./src/astra");
 
@@ -23,16 +30,21 @@ fastify.register(require("point-of-view"), {
   }
 });
 
-// load and parse SEO data
+// Load and parse SEO data
 const seo = require("./src/seo.json");
 if (seo.url === "glitch-default") {
   seo.url = `https://${process.env.PROJECT_DOMAIN}.glitch.me`;
 }
 
-// set our poll options
+// Set up our poll options
 const pollOptions = ["JavaScript", "HTML", "CSS"];
 
-// Our home page route, this pulls from src/pages/index.hbs
+/**
+ * Home route for the app
+ *
+ * Return the poll options from the database helper script
+ * The home route may be called on remix in which case the db needs setup
+ */
 fastify.get("/", async function(request, reply) {
   const params = { seo: seo };
   // get our options
