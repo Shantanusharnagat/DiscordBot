@@ -4,7 +4,7 @@ This project includes a [Node.js](https://nodejs.org/en/about/) server script th
 
 The home page presents the user with a poll where they can choose an option, then the page presents the results in a chart. The admin page displays the log of past choices and allows the user to clear it by supplying their admin key (you can set this up next). 🔒
 
-Check out the __Next steps__ to add a link that allows the user to view the results without casting a vote.
+    
 
 ## Prerequisites
 
