@@ -1,3 +1,9 @@
+/**
+ * Module handles database management
+ *
+ * Server API calls the methods in here to query and update the Astra database
+ */
+
 const { createClient } = require("@astrajs/collections");
 
 // Sets a top-level astraClient variable for us to reference
@@ -38,12 +44,16 @@ const getCollection = async collectionName => {
   }
 };
 
+// We use two collections, one for the log and one for the count of votes
 getCollection("pollOptions");
 getCollection("pollCounts");
 
 // These are the functions we can call when is required in server.js
 module.exports = {
-  // Creates a log entry for the chosen option
+  /* 
+  Creates a log entry for the chosen option
+  - Calls the incrementOption method to increase the count
+  */
   addOptionHistory: async option => {
     const log = await getCollection("pollOptions");
     await log.create({
@@ -53,7 +63,10 @@ module.exports = {
     await module.exports.incrementOption(option);
   },
 
-  // The database stores a total count for each option, this increments it
+  /* 
+  The database stores a total count for each option, this increments it
+  - When the user casts a vote we increase the count for their chosen option
+  */
   incrementOption: async option => {
     const countCollection = await getCollection("pollCounts");
     const currentCount = await module.exports.getOptionCount(option);
@@ -66,7 +79,11 @@ module.exports = {
     }
   },
 
-  // This gets the count for a single option
+  /* 
+  This gets the count for a single option
+  - Accepts the option as a parameter
+  - Retrieves the count for that record
+  */
   getOptionCount: async option => {
     const countCollection = await getCollection("pollCounts"); 
     // Format a default object to return in case we find no results
@@ -89,11 +106,14 @@ module.exports = {
     return optionCount;
   },
 
-  // This bundles up an array for all our totals
+  /* 
+  This bundles up an array for all our totals
+  - We use the array in the front-end UI to display the chart
+  */
   getOptionCounts: async options => {
     const countCollection = await getCollection("pollCounts"); 
     if (countCollection === null) {
-      // there was an error getting the collection, likely improper setup
+      // There was an error getting the collection, likely improper setup
       return null;
     } else {
       const optionCounts = [];
@@ -104,7 +124,10 @@ module.exports = {
     }
   },
 
-  // Get our logs to show a history of choices and timestamps
+  /* 
+  Get our logs to show a history of choices and timestamps
+  - We display these in the Admin page
+  */
   getOptionHistory: async () => {
     const logCollection = await getCollection("pollOptions");
     try {
@@ -121,7 +144,10 @@ module.exports = {
     }
   },
 
-  // Delete 
+  /* 
+  Delete the vote history
+  - Remove the log entries and vote counts
+  */
   deleteOptionHistory: async () => {
     const base = `/api/rest/v2/schemas/keyspaces/${process.env.ASTRA_DB_KEYSPACE}/tables`;
     await getAstraClient();

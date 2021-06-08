@@ -46,16 +46,29 @@ const pollOptions = ["JavaScript", "HTML", "CSS"];
  * The home route may be called on remix in which case the db needs setup
  */
 fastify.get("/", async function(request, reply) {
+  /* 
+  Params is the data we pass to the client
+  - SEO values for front-end UI
+  */
   const params = { seo: seo };
-  // get our options
+  
+  // Get the available choices from the database
   params.options = await astra.getOptionCounts(pollOptions);
   console.log(params.options);
   reply.view("/src/pages/index.hbs", params);
 });
 
-// A POST route to handle and react to form submissions
+/**
+ * Post route to process user vote
+ *
+ * Retrieve vote from body data
+ * Send vote to database helper
+ * Return updated list of votes
+ */
 fastify.post("/", async function(request, reply) {
   const params = { seo: seo };
+  
+  // We have a vote
   if (request.body.optionName) {
     params.picked = true;
     await astra.addOptionHistory(request.body.optionName);
@@ -70,18 +83,28 @@ fastify.post("/", async function(request, reply) {
   reply.view("/src/pages/index.hbs", params);
 });
 
-// Admin endpoint to get logs
+/**
+ * Admin endpoint returns log of votes
+ */
 fastify.get("/logs", async (request, reply) => {
   const params = { seo: seo };
-  // get the poll history
+  // Get the poll history
   params.optionHistory = await astra.getOptionHistory();
   reply.view("/src/pages/admin.hbs", params);
 });
 
-// Admin endpoint to empty all logs - requires auth (instructions in README)
+/**
+ * Admin endpoint to empty all logs
+ *
+ * Requires authorization (see setup instructions in README)
+ */
 fastify.post("/clearlogs", async (request, reply) => {
   const params = { seo: seo };
-  // Authenticate the user request by checking against the env key variable
+  
+  /* 
+  Authenticate the user request by checking against the env key variable
+  - make sure we have a key in the env and body, and that they match
+  */
   if (
     !request.body.key ||
     request.body.key.length < 1 ||
@@ -93,7 +116,9 @@ fastify.post("/clearlogs", async (request, reply) => {
     // Send the log list
     params.optionHistory = await astra.getOptionHistory();
     reply.view("/src/pages/admin.hbs", params);
+    
   } else {
+    // Auth successful - we can delete
     await astra.deleteOptionHistory();
     params.failed = null;
     reply.redirect("/");

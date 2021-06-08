@@ -31,7 +31,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="text/javascript">
       /*
-      The chart chart uses chart.js - try tweaking the config!
+      The chart uses chart.js - try tweaking the config!
       https://www.chartjs.org/docs/3.0.2/charts/doughnut.html
       */
     function showChart(choices, picks){
@@ -98,7 +98,7 @@
                 Submissions so far (see the <a href="/logs">Admin</a> page for a log):
               </p>
               <p>
-                <!-- Pass choices + picks arrays from the API to the chart js script in the page head -->
+                <!-- Pass arrays from the API to the chart js script in the page head -->
                 <canvas id="myChart"></canvas>
                 <script type="text/javascript">
                   showChart({{{optionNames}}}, {{{optionCounts}}});
@@ -115,7 +115,7 @@
                 <p>
                   What do you like coding most?
                 </p>
-                <!-- Call the server pick endpoint when the user submits an option in the poll -->
+                <!-- Call the server post endpoint when the user submits an option in the poll -->
                 <form method="post" action="/">
                   <!-- The server script returns the list of language options to offer in the poll -->
                   {{#each options}}
@@ -127,6 +127,7 @@
                     Submit
                   </button>
                 </form>
+              <!-- On first remix you need to setup your DB–see the README -->
               {{else}}
                 <div class="setup-instructions">
                   <div class="setup-column">
