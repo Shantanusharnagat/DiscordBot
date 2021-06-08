@@ -85,6 +85,29 @@ To set your app up to allow clearing the log:
 
 See the `clearLogs` endpoint in `server.js` to learn how this works.
 
+## Next steps 🚀
+
+Follow the steps to allow the user to view the results without first submitting a vote:
+
+The homepage shows votes cast so far when the user completes the poll, but you can allow them to see the chart straight away.
+
+1. Add a link to `src/pages/index.hbs` after the form, which will send a query parameter to the server script:
+
+```
+<p>
+ <a href="/?results=true">Show results</a>
+</p>
+```
+
+2. Extend the `server.js` `GET` endpoint `/` to send a flag if the user requested the results:
+
+```
+// User requested results
+params.results = request.query.results;
+```
+
+Click the __Show results__ button to see the results without voting!
+
 ![Glitch](https://cdn.glitch.com/a9975ea6-8949-4bab-addb-8a95021dc2da%2FLogo_Color.svg?v=1602781328576)
 
 ## You built this with Glitch!

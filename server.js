@@ -51,10 +51,18 @@ fastify.get("/", async function(request, reply) {
   - SEO values for front-end UI
   */
   const params = { seo: seo };
-  
+
   // Get the available choices from the database
-  params.options = await astra.getOptionCounts(pollOptions);
-  console.log(params.options);
+
+  const options = await astra.getOptionCounts(pollOptions);
+  console.log(options);
+  if (options) {
+    params.optionNames = options.map(option => option.name);
+    params.optionCounts = options.map(option => option.count);
+  }
+  
+  // ADD PARAMS FROM README NEXT STEPS HERE
+  
   reply.view("/src/pages/index.hbs", params);
 });
 
@@ -67,19 +75,15 @@ fastify.get("/", async function(request, reply) {
  */
 fastify.post("/", async function(request, reply) {
   const params = { seo: seo };
-  
+
   // We have a vote
   if (request.body.optionName) {
-    params.picked = true;
+    params.results = true;
     await astra.addOptionHistory(request.body.optionName);
   }
   params.options = await astra.getOptionCounts(pollOptions);
-  params.optionNames = JSON.stringify(
-    params.options.map(option => option.name)
-  );
-  params.optionCounts = JSON.stringify(
-    params.options.map(option => option.count)
-  );
+  params.optionNames = params.options.map(option => option.name);
+  params.optionCounts = params.options.map(option => option.count);
   reply.view("/src/pages/index.hbs", params);
 });
 
@@ -100,7 +104,7 @@ fastify.get("/logs", async (request, reply) => {
  */
 fastify.post("/clearlogs", async (request, reply) => {
   const params = { seo: seo };
-  
+
   /* 
   Authenticate the user request by checking against the env key variable
   - make sure we have a key in the env and body, and that they match
@@ -116,7 +120,6 @@ fastify.post("/clearlogs", async (request, reply) => {
     // Send the log list
     params.optionHistory = await astra.getOptionHistory();
     reply.view("/src/pages/admin.hbs", params);
-    
   } else {
     // Auth successful - we can delete
     await astra.deleteOptionHistory();

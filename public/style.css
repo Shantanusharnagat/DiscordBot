@@ -180,8 +180,12 @@ label {
 .instructions {
   margin: 1rem auto 0;
 }
-.poll-form p, .instructions p {
+.poll-form p,
+.instructions p {
   font-size: 1rem;
+}
+.poll-form a {
+  color: var(--color-primary);
 }
 
 /* Admin page */
@@ -239,14 +243,16 @@ h1 {
   font-size: 48px;
   margin-top: 0.5rem;
 }
-h1, h2 {
+h1,
+h2 {
   font-family: "Kanit", sans-serif;
   font-weight: 700;
 }
 .footer a:hover {
   background: #222222;
 }
-strong, label {
+strong,
+label {
   font-weight: 500;
 }
 @media only screen and (min-width: 640px) {
