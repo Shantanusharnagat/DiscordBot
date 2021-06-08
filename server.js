@@ -79,6 +79,8 @@ fastify.post("/clearlogs", async (request, reply) => {
     // Auth failed, return the log data plus a failed flag
     params.failed = true;
     // Send the log list
+    params.optionHistory = await astra.getOptionHistory();
+    reply.view("/src/pages/admin.hbs", params);
   } else {
     await astra.deleteOptionHistory();
     params.failed = null;

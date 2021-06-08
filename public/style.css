@@ -203,7 +203,7 @@ p a {
 p.error,
 p.error a:link,
 p.error a:visited {
-  color: #2800FF;
+  color: var(--color-primary);
 }
 .form-clear-results {
   margin: 3rem 0;
