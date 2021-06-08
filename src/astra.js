@@ -68,7 +68,7 @@ module.exports = {
 
   // This gets the count for a single option
   getOptionCount: async option => {
-    const countCollection = await getCollection("pollCounts"); console.log(countCollection)
+    const countCollection = await getCollection("pollCounts"); 
     // Format a default object to return in case we find no results
     const optionCount = {
       name: option,
@@ -91,7 +91,7 @@ module.exports = {
 
   // This bundles up an array for all our totals
   getOptionCounts: async options => {
-    const countCollection = await getCollection("pollCounts");
+    const countCollection = await getCollection("pollCounts"); 
     if (countCollection === null) {
       // there was an error getting the collection, likely improper setup
       return null;
@@ -108,7 +108,7 @@ module.exports = {
   getOptionHistory: async () => {
     const logCollection = await getCollection("pollOptions");
     try {
-      const log = await logCollection.find();
+      const log = await logCollection.find(); 
       // reformat our results for the template
       return Object.keys(log).map(itemId => ({
         id: itemId,
