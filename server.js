@@ -60,9 +60,9 @@ fastify.get("/", async function(request, reply) {
     params.optionNames = options.map(option => option.name);
     params.optionCounts = options.map(option => option.count);
   }
-  
+
   // ADD PARAMS FROM README NEXT STEPS HERE
-  
+
   reply.view("/src/pages/index.hbs", params);
 });
 
@@ -81,9 +81,11 @@ fastify.post("/", async function(request, reply) {
     params.results = true;
     await astra.addOptionHistory(request.body.optionName);
   }
-  params.options = await astra.getOptionCounts(pollOptions);
-  params.optionNames = params.options.map(option => option.name);
-  params.optionCounts = params.options.map(option => option.count);
+  const options = await astra.getOptionCounts(pollOptions);
+  if (options) {
+    params.optionNames = options.map(option => option.name);
+    params.optionCounts = options.map(option => option.count);
+  }
   reply.view("/src/pages/index.hbs", params);
 });
 
