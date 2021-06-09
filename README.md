@@ -1,6 +1,6 @@
 # Hello Astra!
 
-This project includes a [Node.js](https://nodejs.org/en/about/) server script that uses a serverless [DataStax Astra](https://astra.datastax.com) database. The app also includes a front-end with two web pages that connect to the database using the server API. 📊
+This project includes a [Node.js](https://nodejs.org/en/about/) server script that uses a serverless [DataStax Astra DB](https://astra.datastax.com) database. The app also includes a front-end with two web pages that connect to the database using the server API. 📊
 
 The home page presents the user with a poll where they can choose an option, then the page presents the results in a chart. The admin page displays the log of past choices and allows the user to clear it by supplying their admin key (you can set this up below). 
 
@@ -14,11 +14,11 @@ _____________________________________________________________________
 
 To get best use out of this project you'll ideally be familiar with JavaScript and have a little Node.js experience–check out [Hello Node](https://glitch.com/~glitch-hello-node) if you haven't already!
 
-## Setting up your Astra data
+## Setting up your Astra DB data
 
-✏️ When you remix this project you'll need to provide your own Astra credentials and setup the database:
+✏️ When you remix this project you'll need to provide your own Astra DB credentials and setup the database:
 
-* [Sign up /into a DataStax Astra account](https://astra.datastax.com/register?utm_source=github&utm_medium=referral&utm_campaign=astra-glitch-react-express-starter).
+* [Sign up /into a DataStax Astra DB account](https://astra.datastax.com/register?utm_source=github&utm_medium=referral&utm_campaign=astra-glitch-react-express-starter).
 * Click __Create Database__ &gt; __Get Started__.
 
 ![Database setup](https://cdn.glitch.com/ae313032-8fbd-4b72-bdc1-d5a86e415b34%2Fastra-db-setup.jpg?v=1623160620637)
@@ -33,7 +33,7 @@ To get best use out of this project you'll ideally be familiar with JavaScript a
 
 * Once your database __Status__ changes to `Active` it's ready to use!
 
-Connect your Astra data to your Glitch app:
+Connect your Astra DB data to your Glitch app:
 
 ![Astra ID](https://cdn.glitch.com/ae313032-8fbd-4b72-bdc1-d5a86e415b34%2Fastra-id.jpg?v=1623160673028)
 
@@ -47,7 +47,7 @@ Connect your Astra data to your Glitch app:
 
 Your database should be good to go and the app homepage should now present a poll with three options!
 
-_You can also use the [GitHub Astra Starter Repository](https://github.com/DataStax-Examples/glitch-astra-starter) which includes instructions for running locally._
+_You can also use the [GitHub Astra DB Starter Repository](https://github.com/DataStax-Examples/glitch-astra-starter) which includes instructions for running locally._
 
 ## What's in this project?
 
@@ -61,7 +61,7 @@ _You can also use the [GitHub Astra Starter Repository](https://github.com/DataS
 
 ← `server.js`: The Node.js server script for your new site. The JavaScript defines the endpoints in the site API. The API processes requests, connects to the database using the `astra` script in `src`, and sends info back to the client (the web pages that make up the app user interface, built using the Handlebars templates in `src/pages`).
 
-← `/src/astra.js`: The database script handles setting up and connecting to the Astra database. The `server.js` API endpoints call the functions in the database script to manage the data.
+← `/src/astra.js`: The database script handles setting up and connecting to Astra DB. The `server.js` API endpoints call the functions in the database script to manage the data.
 
 ### User interface
 
