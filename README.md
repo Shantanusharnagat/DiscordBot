@@ -2,9 +2,7 @@
 
 This project includes a [Node.js](https://nodejs.org/en/about/) server script that uses a serverless [DataStax Astra DB](https://astra.datastax.com) database. The app also includes a front-end with two web pages that connect to the database using the server API. 📊
 
-The home page presents the user with a poll where they can choose an option, then the page presents the results in a chart. The admin page displays the log of past choices and allows the user to clear it by supplying their admin key (you can set this up below). 
-
-Check out the __Next steps__ to add a link that allows the user to view the results without casting a vote.
+The home page presents the user with a poll where they can choose an option, then the page presents the results in a chart. The admin page displays the log of past choices and allows the user to clear it by supplying their admin key (you can set this up by following the steps in `TODO.md`). 🔒
 
 ![DataStax Astra](https://raw.githubusercontent.com/DataStax-Examples/sample-app-template/master/screenshots/astra-sample-app-default.png)
 
@@ -55,7 +53,7 @@ _You can also use the [GitHub Astra DB Starter Repository](https://github.com/Da
 
 ← `package.json`: The NPM packages for your project's dependencies.
 
-← `.env`: The environment is cleared when you initially remix the project, but you will add new env variable values when you follow the setup steps.
+← `.env`: The environment is cleared when you initially remix the project, but you will add a new env variable value when you follow the steps in `TODO.md` to set up an admin key.
 
 ### Server and database
 
@@ -71,44 +69,13 @@ _You can also use the [GitHub Astra DB Starter Repository](https://github.com/Da
 
 ← `src/pages/index.hbs`: The site homepage presents a form when the user first visits. When the visitor submits a preference through the form, the app calls the `POST` endpoint `/`, passing the user selection. The `server.js` endpoint updates the database and returns the user choices submitted so far, which the page presents in a chart (using [Chart.js](https://www.chartjs.org/docs/)–you can see the code in the page `head`);
 
-← `src/pages/admin.hbs`: The admin page presents a table displaying the log of most recent picks. You can clear the list by setting up your admin key in __Next steps__ below. If the user attempts to clear the list without a valid key, the page will present the log again.
+← `src/pages/admin.hbs`: The admin page presents a table displaying the log of most recent picks. You can clear the list by setting up your admin key (see `TODO.md`). If the user attempts to clear the list without a valid key, the page will present the log again.
 
 ← `src/seo.json`: When you're ready to share your new site or add a custom domain, change SEO/meta settings in here.
 
+## Try this next 🏗️
 
-## Setting up admin
-
-The site __Admin__ page allows the user to clear the database log of picks–but only if a valid key is provided. This is a simplified example of auth that checks if the user entered key matches the one in the `.env`. 🔒
-
-To set your app up to allow clearing the log:
-
-* In your `.env` file, find the variable named `ADMIN_KEY` and give it a text string as a value.
-* With the __Admin__ page open in the preview, enter the same value and hit the __Clear log history__ button–this time it should allow you to clear the log.
-
-See the `clearLogs` endpoint in `server.js` to learn how this works.
-
-## Next steps 🚀
-
-Follow the steps to allow the user to view the results without first submitting a vote:
-
-The homepage shows votes cast so far when the user completes the poll, but you can allow them to see the chart straight away.
-
-1. Add a link to `src/pages/index.hbs` after the form, which will send a query parameter to the server script:
-
-```
-<p>
- <a href="/?results=true">Show results</a>
-</p>
-```
-
-2. Extend the `server.js` `GET` endpoint `/` to send a flag if the user requested the results:
-
-```
-// User requested results
-params.results = request.query.results;
-```
-
-Click the __Show results__ button to see the results without voting!
+Take a look in `TODO.md` for steps in setting up your admin key and adding to the site functionality.
 
 ![Glitch](https://cdn.glitch.com/a9975ea6-8949-4bab-addb-8a95021dc2da%2FLogo_Color.svg?v=1602781328576)
 
