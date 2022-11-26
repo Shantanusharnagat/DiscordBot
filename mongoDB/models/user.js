@@ -11,6 +11,11 @@ const userSchema = new mongoose.Schema(
             required: true,
             default: 0
         },
+        cash:{
+            type: Number,
+            required:true,
+          default: 0
+        },
         cooldown: {
             type: Number,
             required: true,
