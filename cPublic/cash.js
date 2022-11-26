@@ -10,7 +10,7 @@ module.exports.run = async(bot, message, args) =>{
     embed
         .setTitle(`**Paisa hi Paisa**`)
         .setColor("GOLD") 
-        .setDescription(`**🕵️‍♂️ Ping Response ${ping}ms**`)
+        .setDescription(`**🕵️‍♂️ ${message.author.cash}**`)
         .setThumbnail('https://static.toiimg.com/thumb/resizemode-4,width-1200,height-900,msid-87930581/87930581.jpg')
 
     message.channel.send({embeds: [embed]})
