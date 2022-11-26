@@ -10,15 +10,28 @@ module.exports.run = async(bot, message, args) =>{
                         "https://static.wikia.nocookie.net/amonguslogic/images/0/04/Among_Us_Logic%2C_But_The_Imposter_Changes_Colors..._-_Cartoon_Animation/revision/latest?cb=20210714075314",
                         "https://i.scdn.co/image/ab67616d0000b273345a1ad46a5d9f597a707c3e");
     var randomNum = Math.floor(Math.random() * myPix.length);
+  
+  if(args.length==0){
+      embed
+            .setTitle(`**IMPOSTER SPOTTED**`)
+            .setColor("DARK_PURPLE")
+           // .setImage("https://www.dreadcentral.com/wp-content/uploads/2020/12/Horror-History-GHOST-STORY-Was-Released-in-1981_edited-750x422.jpg")
+            .setDescription(`**You are the traitor**`)
+            .setThumbnail(`https://w0.peakpx.com/wallpaper/1007/253/HD-wallpaper-you-are-the-impostor-among-among-us-horror-impostor-minions-sayings-simple-us.jpg`)
+
+            message.channel.send({embeds: [embed]})
+  }
+  else{
     
         embed
             .setTitle(`**IMPOSTER SPOTTED**`)
             .setColor("DARK_PURPLE")
            // .setImage("https://www.dreadcentral.com/wp-content/uploads/2020/12/Horror-History-GHOST-STORY-Was-Released-in-1981_edited-750x422.jpg")
-            .setDescription(`${args}`)
+            .setDescription(`**${args}**`)
             .setThumbnail(`${myPix[randomNum]}`)
 
             message.channel.send({embeds: [embed]})
+  }
         
 }
 
