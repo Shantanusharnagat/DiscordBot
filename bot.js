@@ -11,6 +11,7 @@ bot.CommandsPublic=new Collection()
 // MongoDB
 const connectDB = require('./mongoDB/config/connectDB')
 const newUser = require('./mongoDB/method/newUser')
+const incUserPoints = require('./mongoDB/method/incUserPoints')
 try{
     connectDB(process.env.MONGODB_KEY)
 }catch(error){
@@ -50,9 +51,11 @@ bot.on("message", async(message)=>{
     let cmd=cmdWithPrefix.slice(PREFIX.length)
     
     let userRegistered = await newUser(message.author)
-    if(userRegistered === true){
-      message.channel.send(`**ACCOUNT CREATED** ${message.author.username}`)
+    if(userRegistered === true) message.channel.send(`**ACCOUNT CREATED** ${message.author.username}`)
+    else{
+        await incUserPoints(message.author)
     }
+  
 
     if(cmdWithPrefix.toUpperCase().startsWith(PREFIX)){
         PublicCommands(cmd, message, args)
