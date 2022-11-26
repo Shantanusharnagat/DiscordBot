@@ -1,28 +1,21 @@
 {
-  "name": "glitch-astra-starter",
-  "version": "0.0.1",
-  "description": "A simple Node app built on fastify, instantly up and running.",
-  "main": "server.js",
+  "name": "discordbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bot.js",
   "scripts": {
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "@astrajs/collections": "^0.1.0",
-    "fastify": "^3.17.0",
-    "fastify-formbody": "^5.0.0",
-    "fastify-static": "^4.2.2",
-    "handlebars": "^4.7.7",
-    "point-of-view": "^4.14.0"
-  },
-  "engines": {
-    "node": "12.x"
-  },
-  "repository": {
-    "url": "https://github.com/DataStax-Examples/glitch-astra-starter"
-  },
-  "keywords": [
-    "node",
-    "glitch",
-    "express"
-  ]
+    "discord.js": "^13.8.1",
+    "dotenv": "^16.0.3",
+    "is-url-http": "^2.3.2",
+    "moment": "^2.29.4",
+    "mongoose": "^6.7.3",
+    "nodemon": "^2.0.20",
+    "number-formatter": "^1.2.0"
+  }
 }
