@@ -11,8 +11,9 @@ module.exports.run = async(bot, message, args) =>{
         embed
             .setTitle(`**IMPOSTER SPOTTED**`)
             .setColor("DARK_PURPLE")
-            .setDescription('<@'+message.author.id+'>')
-            .setThumbnail('https://i.pinimg.com/564x/27/11/a5/2711a572d219ebf0a7ee5a1970a17ddb.jpg')
+            .setImage("https://t3.ftcdn.net/jpg/03/83/01/44/360_F_383014497_2OcfDEZz4v8v2rCCS9El412Ab4vALcjE.jpg")
+            .setDescription(`${args}`)
+            
 
             message.channel.send({embeds: [embed]})
         
