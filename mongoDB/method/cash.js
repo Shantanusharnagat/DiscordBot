@@ -1,8 +1,7 @@
 const user=require('../models/user')
 
-const cash= async (player)=>{
+const cash= async (player,randomCash)=>{
     try{
-        let randomCash = Math.round(Math.random()*10)
         const findUser = await user.find({ userid: player.id})
         if(findUser.length == 1){
             if((Date.now()-findUser[0].cooldown)>20000){

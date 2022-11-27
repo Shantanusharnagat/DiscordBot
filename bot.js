@@ -28,8 +28,6 @@ for(const file of CommandsPublicFiles){
 }
 
 
-
-
 bot.on("ready", ()=>{
     bot.user.setActivity(`1899 ` ,  {type: "WATCHING"})
     console.log(`${bot.user.tag} is started!!`)

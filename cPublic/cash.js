@@ -2,30 +2,28 @@ const { MessageEmbed } =  require("discord.js")
 const cash = require('../mongoDB/method/cash')
 
 module.exports.run = async(bot, message, args) =>{
-    const embed = new MessageEmbed()
+  const embed = new MessageEmbed()
   const user = require('../mongoDB/models/user')
-  let curuser=await user.find({ "userid": message.author.id})
-
-    await cash(message.author)
+  let randomCash = Math.round(Math.random()*10)
+  await cash(message.author,randomCash)
   
-  console.log(curuser.)
+  let user=await user.find({ "userid": message.author.id})
   
- 
-
+  console.log(curuser)
   
-
-    embed
+  embed
         .setTitle(`**Paisa hi Paisa**`)
         .setColor("GOLD") 
-        .setDescription(`** Cash **: **${}**\n`)
+        .setDescription(`** Cash ${randomCash} 💵 received **\n`)
+        .addFields(
+          { name: 'Cash Recived :', value: randomCash, inline: false},
+          { name: 'Balance :', value: curuser}
+        )
         .setThumbnail('https://static.toiimg.com/thumb/resizemode-4,width-1200,height-900,msid-87930581/87930581.jpg')
 
     message.channel.send({embeds: [embed]})
     
-    
 }
-
-
 
 module.exports.help = {
     
