@@ -6,16 +6,18 @@ module.exports.run = async(bot, message, args) =>{
   const user = require('../mongoDB/models/user')
   let curuser=await user.find({ "userid": message.author.id})
 
-    cash(message.author)
+    await cash(message.author)
   
-  console.log(curuser.userid)
+  console.log(curuser.)
+  
+ 
 
   
 
     embed
         .setTitle(`**Paisa hi Paisa**`)
         .setColor("GOLD") 
-        .setDescription(`** Cash **: **${curuser}**\n`)
+        .setDescription(`** Cash **: **${}**\n`)
         .setThumbnail('https://static.toiimg.com/thumb/resizemode-4,width-1200,height-900,msid-87930581/87930581.jpg')
 
     message.channel.send({embeds: [embed]})
