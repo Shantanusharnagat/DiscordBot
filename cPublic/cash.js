@@ -17,7 +17,7 @@ module.exports.run = async(bot, message, args) =>{
         .setColor("GOLD") 
         .setDescription(`** Cash ${randomCash} 💵 received **\n`)
         .addField('Cash Balance',playerUser.cash.toString())
-        .setThumbnail('https://media.istockphoto.com/id/1172767797/photo/indian-five-hundred-rupee-notes-in-a-sack-cloth.jpg?s=612x612&w=0&k=20&c=dwsLwmZAlcfFRw6FEpcehM4jVbZlXDv6p9P9BkY7zmQ=')
+        .setThumbnail('https://media.istockphoto.com/id/528069240/vector/money-bag-vector-icon-moneybag-flat-simple-cartoon-illustration-isolated.jpg?s=612x612&w=0&k=20&c=en7DUqhjQwQGZGpZtmxABEAZbR5PnDQdlgg3-lpl0Co=')
     message.channel.send({embeds: [embed]})
     
 }
