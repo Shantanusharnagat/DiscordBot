@@ -15,10 +15,10 @@ const pipeline = new oneai.Pipeline(
 
 pipeline.run(text).then((res)=>{
     embed
-        .setTitle(`NLP SENTIMENT`)
+        .setTitle(`YOUR SENTIMENT`)
         .setColor("BLUE") 
         .setDescription(`**${res.sentiments[0].value}**`)
-        .setThumbnail('https://static.toiimg.com/thumb/resizemode-4,width-1200,height-900,msid-87930581/87930581.jpg')
+        .setThumbnail('https://cdn.brandmentions.com/blog/wp-content/uploads/2019/05/sentiment-analysys-brandmentions.png')
 
     message.channel.send({embeds: [embed]})
 });
@@ -33,8 +33,8 @@ pipeline.run(text).then((res)=>{
 
 module.exports.help = {
     
-    name:"fact",
-    aliases: "f",
-    desc: "Api to learn facts on crypto"
+    name:"sentiment",
+    aliases: "s",
+    desc: "Api to find your sentiments"
 }
 
