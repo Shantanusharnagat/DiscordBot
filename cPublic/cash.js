@@ -4,7 +4,7 @@ const cash = require('../mongoDB/method/cash')
 module.exports.run = async(bot, message, args) =>{
     const embed = new MessageEmbed()
   const user = require('../mongoDB/models/user')
-    const ping = Math.round(bot.ws.ping)
+  let curuser=await 
     cash(message.author)
 
     embed
