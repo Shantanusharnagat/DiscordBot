@@ -1,11 +1,8 @@
 const { MessageEmbed } =  require("discord.js")
-const {StringStream} = require("scramjet");
-const request = require("request");
 
 module.exports.run = async(bot, message, args) =>{
     const embed = new MessageEmbed()
-    request.get("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY_EXTENDED&symbol=IBM&interval=15min&slice=year1month1&apikey=demo")
-
+   
     const ping = Math.round(bot.ws.ping)
 
     embed
