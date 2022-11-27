@@ -1,17 +1,19 @@
 const { MessageEmbed } =  require("discord.js")
+const OneAI = require("oneai");
+
 
 module.exports.run = async(bot, message, args) =>{
     const embed = new MessageEmbed()
    
-    const ping = Math.round(bot.ws.ping)
+    const oneai = new OneAI(process.env.ONEAI);
+const text = "Whether to power translation to document summarization, enterprises are increasing their investments in natural language processing (NLP) technologies. According to a 2021 survey from John Snow Labs and Gradient Flow, 60% of tech leaders indicated that their NLP budgets grew by at least 10% compared to 2020, while a third said that spending climbed by more than 30%";
+const pipeline = new oneai.Pipeline(
+    oneai.skills.summarize(),
+);
 
-    embed
-        .setTitle(`SUIIIIIII`)
-        .setColor("RED") 
-        .setDescription(`**🕵️‍♂️ Ping Response ${ping}ms**`)
-        .setThumbnail('https://static.toiimg.com/thumb/resizemode-4,width-1200,height-900,msid-87930581/87930581.jpg')
+pipeline.run(text).then(console.log);
 
-    message.channel.send({embeds: [embed]})
+    
     
     
 }

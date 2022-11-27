@@ -10,7 +10,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "engines": { "node": "16.x" },
+  "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
     "discord.js": "^13.8.1",
     "dotenv": "^16.0.3",
@@ -18,6 +20,7 @@
     "moment": "^2.29.4",
     "mongoose": "^6.7.3",
     "nodemon": "^2.0.20",
-    "number-formatter": "^1.2.0"
+    "number-formatter": "^1.2.0",
+    "oneai": "^0.5.2"
   }
 }
