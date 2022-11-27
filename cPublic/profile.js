@@ -11,8 +11,8 @@ module.exports.run = async(bot, message, args) =>{
         .setTitle(`${message.author.username}'s Profile`)
         .setThumbnail(message.author.avatarURL())
         .setColor("PURPLE") 
-        .addField({name:'Points',value:playerUser.points,inline:false})
-        .addField({name:'Cash',value:playerUser.cash,inline:false})
+        .addField("Points",playerUser.points.toString())
+        .addField('Cash',playerUser.cash.toString() + " 💵")
 
     message.channel.send({embeds: [embed]})
 }
