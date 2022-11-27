@@ -16,10 +16,10 @@ module.exports.run = async(bot, message, args) =>{
         .setTitle(`**Paisa hi Paisa**`)
         .setColor("GOLD") 
         .setDescription(`** Cash ${randomCash} 💵 received **\n`)
-        .addFields(
-          { name: 'Cash Recived :', value: randomCash, inline: false},
-          { name: 'Balance :', value: playerUser.cash}
-        )
+        .addField({name:'Cash Received',value:playerUser.points,inline:false})
+        .addField({name:'Cash Balance :',value:playerUser.cash,inline:false})
+        .addField('Cash Received:',randomCash,false)
+        .addField('Cash Balance :',playerUser.cash,false)
         .setThumbnail('https://tenor.com/view/evacomics-money-printer-money-printing-printing-money-print-money-gif-23263021')
 
     message.channel.send({embeds: [embed]})
