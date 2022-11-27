@@ -1,15 +1,16 @@
 const { MessageEmbed } =  require("discord.js")
 const cash = require('../mongoDB/method/cash')
+  const user = require('../mongoDB/models/user')
 
 module.exports.run = async(bot, message, args) =>{
+  
   const embed = new MessageEmbed()
-  const user = require('../mongoDB/models/user')
+  
   let randomCash = Math.round(Math.random()*10)
   await cash(message.author,randomCash)
   
-  let user=await user.find({ "userid": message.author.id})
-  
-  console.log(curuser)
+  let findUser = await user.find({ "userid": message.author.id})
+  let playerUser = findUser[0]
   
   embed
         .setTitle(`**Paisa hi Paisa**`)
@@ -17,9 +18,9 @@ module.exports.run = async(bot, message, args) =>{
         .setDescription(`** Cash ${randomCash} 💵 received **\n`)
         .addFields(
           { name: 'Cash Recived :', value: randomCash, inline: false},
-          { name: 'Balance :', value: curuser}
+          { name: 'Balance :', value: playerUser.cash}
         )
-        .setThumbnail('https://static.toiimg.com/thumb/resizemode-4,width-1200,height-900,msid-87930581/87930581.jpg')
+        .setThumbnail('https://tenor.com/view/evacomics-money-printer-money-printing-printing-money-print-money-gif-23263021')
 
     message.channel.send({embeds: [embed]})
     

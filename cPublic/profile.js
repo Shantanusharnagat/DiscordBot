@@ -15,7 +15,6 @@ module.exports.run = async(bot, message, args) =>{
           { name: 'Points', value: playerUser.points, inline: false },
           { name: 'Cash', value: playerUser.cash, inline: false },
         )
-        .setDescription(`**Points: ${playerUser.points}**\n**Cash: ${playerUser.cash}**`)
 
     message.channel.send({embeds: [embed]})
 }
