@@ -32,7 +32,7 @@ module.exports.run = async(bot, message, args) =>{
 module.exports.help = {
     
     name:"spank",
-    aliases: "",
+    
     desc: "Spank the tagged user"
 }
 
