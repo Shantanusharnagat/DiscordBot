@@ -3,7 +3,7 @@ const gunscollection = require("./../collection/gunskins.json").collection
 const buddiesCollection=require("./../collection/buddies.json").collection
 const sprayCollection=require("./../collection/spray.json").collection
 const errNoAcct = require("./../partial_functions/errNoAcct")
-const dropUpdates = require("../mongoDB/method/dropUpdates")
+const dropbuddies = require("../mongoDB/method/dropbuddies")
 
 module.exports.run = async(bot, message, args) =>{
     const embed = new MessageEmbed()
@@ -18,7 +18,7 @@ module.exports.run = async(bot, message, args) =>{
         let randomNumber = Math.round(Math.random()*itemList.length)
         let itemReceived = itemList[randomNumber]
        
-        await dropUpdates(message.author,itemReceived.uuid)
+        await dropbuddies(message.author,itemReceived.uuid)
 
         embed
             // .setAuthor({ name: `${message.author.username}'s opened Lootbox`, iconURL: message.author.avatarURL()})
