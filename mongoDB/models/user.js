@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema(
                 buddies:[itemSchema],
             }
         },
-        points:{
+        cash:{
             type: Number,
             required: true,
             default: 0
