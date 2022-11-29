@@ -1,5 +1,6 @@
 const { MessageEmbed } =  require("discord.js")
 const buddiesCollection = require("./../collection/gunskins.json").collection
+const sprayCollection=require("./../collection/spray.json")
 const errNoAcct = require("./../partial_functions/errNoAcct")
 const dropUpdates = require("../mongoDB/method/dropUpdates")
 
@@ -10,8 +11,9 @@ module.exports.run = async(bot, message, args) =>{
     var findUser = await user.find({ userid: message.author.id });
     if(findUser.length>0){
         let playerUser = findUser[0];
-
-        let itemList = Object.values(buddiesCollection)
+        var arr=[1, buddiesCollection, sprayCollection]
+        let randomItem = Math.round(Math.random()*2)
+        let itemList = Object.values(arr[randomItem])
         let randomNumber = Math.round(Math.random()*itemList.length)
         let itemReceived = itemList[randomNumber]
 
