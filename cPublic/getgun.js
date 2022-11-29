@@ -20,6 +20,8 @@ module.exports.run = async(bot, message, args) =>{
         let randomNumber = Math.round(Math.random()*itemList.length)
         let itemReceived = itemList[randomNumber]
         
+        
+       
        
         await dropbuddies(message.author,itemReceived.uuid)
 
@@ -28,8 +30,8 @@ module.exports.run = async(bot, message, args) =>{
             .setTitle(`${itemReceived.displayName}`)
             .addField(`Inventory`,
 `
-Total Guns: ${playerUser.inventory.items.buddies.length+1}
-Total Collection: ${playerUser.inventory.items.buddies.length+1}
+**Total Buddies**: ${playerUser.inventory.items.buddies.length+1}
+
 `)  
              .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-_pink_color_version.svg/1200px-Valorant_logo_-_pink_color_version.svg.png")
             .setImage(itemReceived.displayURL)
@@ -37,6 +39,43 @@ Total Collection: ${playerUser.inventory.items.buddies.length+1}
             .setFooter({text:`${message.author.username}'s lootbox`, iconURL: message.author.avatarURL()})
     
         await message.channel.send({embeds: [embed]})
+        
+//         else if(randomItem==gunscollection){
+//           await dropguns(message.author,itemReceived.uuid)
+
+//         embed
+//             // .setAuthor({ name: `${message.author.username}'s opened Lootbox`, iconURL: message.author.avatarURL()})
+//             .setTitle(`${itemReceived.displayName}`)
+//             .addField(`Inventory`,
+// `
+// **Total Guns**: ${playerUser.inventory.items.guns.length+1}
+
+// `)  
+//              .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-_pink_color_version.svg/1200px-Valorant_logo_-_pink_color_version.svg.png")
+//             .setImage(itemReceived.displayURL)
+//             .setColor("AQUA") 
+//             .setFooter({text:`${message.author.username}'s lootbox`, iconURL: message.author.avatarURL()})
+    
+//         await message.channel.send({embeds: [embed]})
+//         }
+//       else if(randomItem==sprayCollection){
+//         await dropsprays(message.author,itemReceived.uuid)
+
+//         embed
+//             // .setAuthor({ name: `${message.author.username}'s opened Lootbox`, iconURL: message.author.avatarURL()})
+//             .setTitle(`${itemReceived.displayName}`)
+//             .addField(`Inventory`,
+// `
+// **Total Sprays**: ${playerUser.inventory.items.spray.length+1}
+
+// `)  
+//              .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-_pink_color_version.svg/1200px-Valorant_logo_-_pink_color_version.svg.png")
+//             .setImage(itemReceived.displayURL)
+//             .setColor("AQUA") 
+//             .setFooter({text:`${message.author.username}'s lootbox`, iconURL: message.author.avatarURL()})
+    
+//         await message.channel.send({embeds: [embed]})
+//       }
     }else{
         errNoAcct(message)
     }
