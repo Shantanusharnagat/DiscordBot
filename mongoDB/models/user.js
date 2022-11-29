@@ -1,25 +1,45 @@
 const mongoose = require('mongoose')
 
+const itemSchema = new mongoose.Schema(
+    {
+        uuid:{
+            type:String,
+        },
+        count:{
+            type:Number,
+            default:0
+        }
+    }
+)
+
 const userSchema = new mongoose.Schema(
     {
         userid:{
             type: String,
             required: true,
         },
+        inventory:{
+            lootbox:{
+                basic:{
+                    type: Number,
+                    default: 10
+                }
+            },
+            currency:{
+                valocoin:{
+                    type: Number,
+                    required: true,
+                    default: 1000
+                }
+            },
+            items:{
+                buddies:[itemSchema],
+            }
+        },
         points:{
             type: Number,
             required: true,
             default: 0
-        },
-        cash:{
-            type: Number,
-            required:true,
-          default: 0
-        },
-        cooldown: {
-            type: Number,
-            required: true,
-            default: Date.now()
         }
     },
     { minimize: false}
