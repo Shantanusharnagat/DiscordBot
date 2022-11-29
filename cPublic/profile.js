@@ -1,18 +1,24 @@
 const { MessageEmbed } =  require("discord.js")
+const buddiesCollection = require("./../collection/gunskins.json")
 
 module.exports.run = async(bot, message, args) =>{
     const embed = new MessageEmbed()
 
     const user = require('../mongoDB/models/user')
     var findUser = await user.find({ userid: message.author.id });
-    let playerUser = findUser[0];
+    playerUser = findUser[0];
 
     embed
         .setTitle(`${message.author.username}'s Profile`)
         .setThumbnail(message.author.avatarURL())
         .setColor("PURPLE") 
-        .addField("Points",playerUser.points.toString())
-        .addField('Cash',playerUser.cash.toString() + " 💵")
+        .addField("INVENTORY",`
+    LootBox: 10
+    Guns: ${playerUser.inventory.items.buddies.length}/${Object.values(buddiesCollection.collection).length}    
+    `,true)
+        .addField("STATS",`
+    Cash: ${playerUser.cash}   
+    `,true)
 
     message.channel.send({embeds: [embed]})
 }
