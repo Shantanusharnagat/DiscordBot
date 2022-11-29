@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema(
             items:{
                 buddies:[itemSchema],
                 guns:[itemSchema],
-                sprays:[itemSchema]
+                spray:[itemSchema]
             }
         },
         cash:{

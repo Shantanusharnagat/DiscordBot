@@ -1,6 +1,6 @@
 const user = require('../models/user')
 
-const dropUpdates = async (player, uuid) => {
+const dropbuddies = async (player, uuid) => {
     try{
         const findUser = await user.find({ userid: player.id});
         const userDetails = await user.find({ userid: player.id, 'inventory.items.buddies.uuid': uuid });
@@ -23,4 +23,4 @@ const dropUpdates = async (player, uuid) => {
     }
 }
 
-module.exports = dropUpdates
+module.exports = dropbuddies

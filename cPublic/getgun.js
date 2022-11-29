@@ -4,6 +4,8 @@ const buddiesCollection=require("./../collection/buddies.json").collection
 const sprayCollection=require("./../collection/spray.json").collection
 const errNoAcct = require("./../partial_functions/errNoAcct")
 const dropbuddies = require("../mongoDB/method/dropbuddies")
+const dropguns = require("../mongoDB/method/dropguns")
+const dropsprays = require("../mongoDB/method/dropsprays")
 
 module.exports.run = async(bot, message, args) =>{
     const embed = new MessageEmbed()
@@ -12,11 +14,12 @@ module.exports.run = async(bot, message, args) =>{
     var findUser = await user.find({ userid: message.author.id });
     if(findUser.length>0){
         let playerUser = findUser[0];
-        var arr=[1, gunscollection, buddiesCollection, sprayCollection]
-        let randomItem = Math.round(Math.random()*3)
+        var arr=[ gunscollection, buddiesCollection, sprayCollection]
+        let randomItem = Math.floor(Math.random()*3)
         let itemList = Object.values(arr[randomItem])
         let randomNumber = Math.round(Math.random()*itemList.length)
         let itemReceived = itemList[randomNumber]
+        
        
         await dropbuddies(message.author,itemReceived.uuid)
 
