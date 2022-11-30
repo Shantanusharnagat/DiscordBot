@@ -1,5 +1,7 @@
 const { MessageEmbed } =  require("discord.js")
-const buddiesCollection = require("./../collection/gunskins.json")
+const guns = require("./../collection/gunskins.json")
+const buddies=require("./../collection/buddies.json")
+const sprays=require("./../collection/spray.json")
 
 module.exports.run = async(bot, message, args) =>{
     const embed = new MessageEmbed()
@@ -14,7 +16,9 @@ module.exports.run = async(bot, message, args) =>{
         .setColor("PURPLE") 
         .addField("INVENTORY",`
     LootBox: 10
-    Guns: ${playerUser.inventory.items.buddies.length}/${Object.values(buddiesCollection.collection).length}    
+    Guns: ${playerUser.inventory.items.guns.length}
+    Buddies: ${playerUser.inventory.items.buddies.length}
+    Sprays: ${playerUser.inventory.items.spray.length}
     `,true)
         .addField("STATS",`
     Cash: ${playerUser.cash}   
