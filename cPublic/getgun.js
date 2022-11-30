@@ -33,8 +33,8 @@ module.exports.run = async(bot, message, args) =>{
 **Total Buddies**: ${playerUser.inventory.items.buddies.length+1}
 
 `)  
-             .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-_pink_color_version.svg/1200px-Valorant_logo_-_pink_color_version.svg.png")
-            .setImage(itemReceived.displayURL)
+           //  .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-_pink_color_version.svg/1200px-Valorant_logo_-_pink_color_version.svg.png")
+            .setThumbnail(itemReceived.displayURL)
             .setColor("AQUA") 
             .setFooter({text:`${message.author.username}'s lootbox`, iconURL: message.author.avatarURL()})
     
