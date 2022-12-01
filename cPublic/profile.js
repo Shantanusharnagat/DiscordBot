@@ -7,15 +7,18 @@ module.exports.run = async(bot, message, args) =>{
     const embed = new MessageEmbed()
 
     const user = require('../mongoDB/models/user')
+    if(args.length!=0){
     var findUser = await user.find({ userid: args[0].substr(2,18) });
+  
+    let player = message.guild.members.cache.get(args[0].slice(2,-1))
 
     playerUser = findUser[0];
   
 
 
     embed
-        .setTitle(`${args} Profile`)
-        .setThumbnail("https://booleanstrings.com/wp-content/uploads/2021/10/profile-picture-circle-hd.png")
+        .setTitle(`${player.user.username}'s Profile`)
+        .setThumbnail(`${player.user.avatarURL()}`)
         .setColor("PURPLE") 
         .addField("INVENTORY",`
     LootBox: 10
@@ -28,6 +31,10 @@ module.exports.run = async(bot, message, args) =>{
     `,true)
 
     message.channel.send({embeds: [embed]})
+    }
+  else{
+    
+  }
 }
 
 module.exports.help = {
