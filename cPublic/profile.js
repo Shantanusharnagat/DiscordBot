@@ -7,10 +7,11 @@ module.exports.run = async(bot, message, args) =>{
     const embed = new MessageEmbed()
 
     const user = require('../mongoDB/models/user')
-    var findUser = await user.find({ userid: message.author.id });
+    var findUser = await user.find({ userid: args[0] });
+  console.log(message.author.id)
     playerUser = findUser[0];
   
-  console.log(args.username)
+  console.log(args[0])
 
     embed
         .setTitle(`${message.author.username}'s Profile`)
