@@ -33,6 +33,27 @@ module.exports.run = async(bot, message, args) =>{
     message.channel.send({embeds: [embed]})
     }
   else{
+     var findUser = await user.find({ userid: message.author.id });
+  
+  
+
+    playerUser = findUser[0];
+     embed
+        .setTitle(`${message.author.username}'s Profile`)
+        .setThumbnail(`${message.author.avatarURL()}`)
+        .setColor("PURPLE") 
+        .addField("INVENTORY",`
+    LootBox: 10
+    Guns: ${playerUser.inventory.items.guns.length}
+    Buddies: ${playerUser.inventory.items.buddies.length}
+    Sprays: ${playerUser.inventory.items.spray.length}
+    `,true)
+        .addField("STATS",`
+    Cash: ${playerUser.cash}   
+    `,true)
+
+    message.channel.send({embeds: [embed]})
+    
     
   }
 }
