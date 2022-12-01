@@ -7,15 +7,15 @@ module.exports.run = async(bot, message, args) =>{
     const embed = new MessageEmbed()
 
     const user = require('../mongoDB/models/user')
-    var findUser = await user.find({ userid: args[0] });
-  console.log(message.author.id)
+    var findUser = await user.find({ userid: args[0].substr(2,18) });
+
     playerUser = findUser[0];
   
-  console.log(args[0])
+
 
     embed
-        .setTitle(`${message.author.username}'s Profile`)
-        .setThumbnail(message.author.avatarURL())
+        .setTitle(`${args} Profile`)
+        .setThumbnail("https://booleanstrings.com/wp-content/uploads/2021/10/profile-picture-circle-hd.png")
         .setColor("PURPLE") 
         .addField("INVENTORY",`
     LootBox: 10
