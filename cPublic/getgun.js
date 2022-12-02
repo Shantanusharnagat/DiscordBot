@@ -82,7 +82,7 @@ module.exports.run = async(bot, message, args) =>{
 }
 
 module.exports.help = {
-    name:"open",
-    aliases: "gg",
+    name:"openbox",
+    aliases: "ob",
     desc: "Open lootbox"
 }
