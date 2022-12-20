@@ -34,9 +34,9 @@ bot.on("ready", ()=>{
 
 })
 
-bot.on("messageDelete", async (messageDelete)=>{
-    messageDelete.channel.send("I saw that 👽")
-})
+// bot.on("messageDelete", async (messageDelete)=>{
+//     messageDelete.channel.send("I saw that 👽")
+// })
 
 
 bot.on("message", async(message)=>{
