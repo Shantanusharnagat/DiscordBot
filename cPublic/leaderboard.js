@@ -10,7 +10,7 @@ module.exports.run = async(bot, message, args) =>{
         userInfo = bot.users.cache.find(user => user.id === allUsers[i].userid)
      
         console.log(allUsers[i].points)
-        leaderboard+=`*${userInfo.username} Points*: **${allUsers[i]}**\n`
+        leaderboard+=`*${userInfo.username} Points*: **${allUsers[i].valocoin}**\n`
     }
     embed
           .setTitle("**Leaderboard**")
